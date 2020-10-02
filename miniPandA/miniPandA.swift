@@ -27,7 +27,7 @@ struct Provider: TimelineProvider {
         guard let kadai = try? JSONDecoder().decode(Kadai.self, from:kadaiList) else { return }
         
         let entry = KadaiEntry(kadai: kadai)
-        let timeline = Timeline(entries: [entry], policy: .never)
+        let timeline = Timeline(entries: [entry], policy: .atEnd)
         completion(timeline)
     }
     
@@ -42,8 +42,24 @@ struct Provider: TimelineProvider {
 struct WidgetEntryView: View {
     let entry: Provider.Entry
     
+    @Environment(\.widgetFamily) var family
+    
+    @ViewBuilder
     var body: some View {
-        KadaiView(kadai: entry.kadai)
+        switch family {
+        case .systemMedium:
+            KadaiView(kadai: entry.kadai)
+        
+        default:
+            let kadais = [
+                Kadai(id: "001", lectureName: "Lec1", assignmentInfo: "Quiz1", dueDate: Date(), isFinished: false),
+                Kadai(id: "002", lectureName: "Lec2", assignmentInfo: "Quiz2", dueDate: Date(), isFinished: false),
+                Kadai(id: "003", lectureName: "Lec3", assignmentInfo: "Quiz3", dueDate: Date(), isFinished: false),
+                Kadai(id: "004", lectureName: "Lec3", assignmentInfo: "Quiz3", dueDate: Date(), isFinished: false)
+            ]
+            KadaiViewLarge(kadaiList: kadais)
+        }
+        
     }
 }
 
@@ -58,5 +74,7 @@ struct miniPandAWidget: Widget {
         ) {entry in
             WidgetEntryView(entry: entry)
         }
+        .supportedFamilies([.systemMedium,.systemLarge])
     }
+    
 }
