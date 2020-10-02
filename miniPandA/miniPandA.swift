@@ -52,7 +52,7 @@ struct WidgetEntryView: View {
         
         default:
             let kadais = [
-                Kadai(id: "001", lectureName: "Lec1", assignmentInfo: "Quiz1", dueDate: Date(), isFinished: false),
+                Kadai(id: "001", lectureName: "電気電子工学基礎実験", assignmentInfo: "Quiz1", dueDate: Date(), isFinished: false),
                 Kadai(id: "002", lectureName: "Lec2", assignmentInfo: "Quiz2", dueDate: Date(), isFinished: false),
                 Kadai(id: "003", lectureName: "Lec3", assignmentInfo: "Quiz3", dueDate: Date(), isFinished: false),
                 Kadai(id: "004", lectureName: "Lec3", assignmentInfo: "Quiz3", dueDate: Date(), isFinished: false)
@@ -73,8 +73,8 @@ struct miniPandAWidget: Widget {
             provider: Provider()
         ) {entry in
             WidgetEntryView(entry: entry)
+                .background(Color(red: 200/255 , green: 200/255, blue: 200/255))
         }
         .supportedFamilies([.systemMedium,.systemLarge])
     }
-    
 }

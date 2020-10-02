@@ -20,6 +20,7 @@ struct HeaderView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 100, alignment: .center)
+                    .padding(.leading, 5)
                     .padding(.trailing, 16)
                 Spacer()
                 Text(updatedTime)

@@ -21,36 +21,47 @@ struct KadaiViewLarge: View{
     let kadaiList: [Kadai]
     
     var body: some View {
-        VStack(alignment:.leading ,spacing: 5){
+        VStack(alignment:.leading ,spacing: 20){
             HeaderView(updatedTime: "2020/10/02 15:00 更新")
-            VStack(alignment:.leading, spacing:0){
+            VStack(alignment:.leading, spacing:5){
                 ForEach(kadaiList){entry in
-                    VStack(alignment:.leading, spacing:0){
-                        HStack{
-                            Text("24時間以内")
-                                    .fontWeight(.bold)
-                                    .font(.system(size: 11))
-                                    .foregroundColor(.white)
-                                    .padding()
-                                    .background(
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .fill(Color.red)
-                                                .frame(width: 70, height: 15)
-                                        )
+                    VStack(alignment:.leading, spacing:5){
+                        HStack(spacing:0){
+                            Circle()
+                                .fill(Color.blue)
+                                .padding(.trailing, 5)
+                                .frame(width: 20, height: 20)
+//                            Text("24時間以内")
+//                                    .fontWeight(.bold)
+//                                    .font(.system(size: 11))
+//                                    .foregroundColor(.white)
+//                                    .padding(.horizontal)
+//                                    .background(
+//                                            RoundedRectangle(cornerRadius: 5)
+//                                                .fill(Color.red)
+//                                                .frame(width: 70, height: 15)
+//                                        )
                             Text(entry.lectureName)
-                                .font(.system(size: 18))
+                                .font(.system(size: 14))
+                                .fontWeight(.bold)
+                                .lineLimit(1)
+                                .padding(.trailing, 5)
                             Text("あと0日5時間30分")
                                 .font(.system(size: 12))
                                 .fontWeight(.bold)
                                 .foregroundColor(.gray)
                         }
-                        Text(entry.assignmentInfo)
-                            .font(.system(size: 16))
+                        HStack(alignment: .center, spacing: 0){
+                            Text(entry.assignmentInfo)
+                                .font(.system(size: 14))
+                                .padding(.leading)
+                        }
+                        
                     }
                     
                 }
-                
             }
+            Spacer()
         }
         
         
