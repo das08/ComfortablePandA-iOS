@@ -31,7 +31,7 @@ struct KadaiViewLarge: View{
                     VStack(alignment:.leading, spacing:5){
                         HStack(spacing:0){
                             Text(entry.lectureName)
-                                .font(.system(size: 12))
+                                .font(.system(size: 13))
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
                                 .lineLimit(1)
@@ -44,14 +44,15 @@ struct KadaiViewLarge: View{
                                 )
                                 .padding(.horizontal, 5)
                             Text("あと\(time.days)日\(time.hour)時間\(time.minute)分")
-                                .font(.system(size: 12))
+//                            Text(entry.dueDate!, style: .relative)
+                                .font(.system(size: 14))
                                 .fontWeight(.bold)
                                 .foregroundColor(Color(red: 100/255 , green: 100/255, blue: 100/255))
                             
                         }
                         HStack(alignment: .center, spacing: 0){
                             Text(entry.assignmentInfo)
-                                .font(.system(size: 14))
+                                .font(.system(size: 13))
                                 .lineLimit(1)
                                 .padding(.leading)
                                 .padding(.bottom,5)
