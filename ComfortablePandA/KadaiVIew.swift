@@ -26,7 +26,7 @@ struct KadaiViewLarge: View{
             VStack(alignment:.leading, spacing:5){
                 ForEach(kadaiList){entry in
                     
-                    let time = getTimeRemain(dueDate: entry.dueDate)
+                    let time = getTimeRemain(dueDate: entry.dueDate, dispDate: entry.dispDate)
                     
                     VStack(alignment:.leading, spacing:5){
                         HStack(spacing:0){

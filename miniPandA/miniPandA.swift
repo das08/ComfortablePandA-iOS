@@ -9,31 +9,56 @@ import WidgetKit
 import SwiftUI
 
 struct KadaiEntry: TimelineEntry {
-    let date = Date()
-    let kadai: Kadai
+    let date: Date
+    let kadai: [Kadai]
 }
 
 struct Provider: TimelineProvider {
-    @AppStorage("kadai", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
-    var kadaiList: Data = Data()
+//    @AppStorage("kadai", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
+//    var kadaiList: Data = Data()
+    var kadaiList = [
+        Kadai(id: "001", lectureName: "電気電子工学基礎実験", assignmentInfo: "第２週予習課題（19~21班）", dueDate: generateDate(y: 2020, mo: 10, d: 3, h: 9, min: 0), isFinished: false),
+        Kadai(id: "002", lectureName: "電気電子数学1", assignmentInfo: "Assignment 1", dueDate: generateDate(y: 2020, mo: 10, d: 6, h: 9, min: 0), isFinished: false),
+        Kadai(id: "003", lectureName: "電気電子計測", assignmentInfo: "第1回レポート", dueDate: generateDate(y: 2020, mo: 10, d: 10, h: 9, min: 0), isFinished: false),
+        Kadai(id: "004", lectureName: "電気電子計測", assignmentInfo: "第1回レポート", dueDate: generateDate(y: 2020, mo: 10, d: 10, h: 9, min: 0), isFinished: false),
+        Kadai(id: "005", lectureName: "電磁気学1", assignmentInfo: "確認問題１", dueDate: generateDate(y: 2020, mo: 10, d: 20, h: 9, min: 0), isFinished: false)
+    ]
     
     func getSnapshot(in context: Context, completion: @escaping (KadaiEntry) -> Void) {
-        guard let kadai = try? JSONDecoder().decode(Kadai.self, from:kadaiList) else { return }
-        let entry = KadaiEntry(kadai: kadai)
+//        guard let kadai = try? JSONDecoder().decode(Kadai.self, from:kadaiList) else { return }
+        let entry = KadaiEntry(date: Date(), kadai: kadaiList)
         completion(entry)
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<KadaiEntry>) -> Void) {
-        guard let kadai = try? JSONDecoder().decode(Kadai.self, from:kadaiList) else { return }
+//        guard let kadai = try? JSONDecoder().decode(Kadai.self, from:kadaiList) else { return }
         
-        let entry = KadaiEntry(kadai: kadai)
-        let timeline = Timeline(entries: [entry], policy: .atEnd)
+        var entries = [KadaiEntry]()
+        let currentDate = Date()
+        let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
+        
+        for offset in 0 ..< 5 {
+            let entryDate: Date = Calendar.current.date(byAdding: .minute, value: offset, to: currentDate)!
+            var kadaiList2 = [Kadai]()
+            for var entry in kadaiList {
+                entry.dispDate = entryDate
+                kadaiList2.append(entry)
+            }
+            
+            entries.append(KadaiEntry(date: entryDate, kadai:kadaiList2))
+        }
+
+        
+//        let entry = KadaiEntry(date: Date(), kadai: kadaiList)
+//        let entry2 = KadaiEntry(date: generateDate(y: 2020, mo: 10, d: 3, h: 23, min: 59)!, kadai: kadaiList)
+//        let timeline = Timeline(entries: [entry, entry2], policy: .after(nextDay))
+        let timeline = Timeline(entries: entries, policy: .after(nextDay))
         completion(timeline)
     }
     
     func placeholder(in context: Context) -> KadaiEntry {
         let placeholder = Kadai(id: "001", lectureName: "Lec1", assignmentInfo: "Quiz1", dueDate: Date(), isFinished: false)
-        return KadaiEntry(kadai: placeholder)
+        return KadaiEntry(date: Date(), kadai: [placeholder])
     }
     
 }
@@ -47,18 +72,11 @@ struct WidgetEntryView: View {
     @ViewBuilder
     var body: some View {
         switch family {
-        case .systemMedium:
-            KadaiView(kadai: entry.kadai)
-        
+//        case .systemMedium:
+//            KadaiView(kadai: entry.kadai)
+//
         default:
-            let kadais = [
-                Kadai(id: "001", lectureName: "電気電子工学基礎実験", assignmentInfo: "第２週予習課題（19~21班）", dueDate: generateDate(y: 2020, mo: 10, d: 3, h: 9, min: 0), isFinished: false),
-                Kadai(id: "002", lectureName: "電気電子数学1", assignmentInfo: "Assignment 1", dueDate: generateDate(y: 2020, mo: 10, d: 6, h: 9, min: 0), isFinished: false),
-                Kadai(id: "003", lectureName: "電気電子計測", assignmentInfo: "第1回レポート", dueDate: generateDate(y: 2020, mo: 10, d: 10, h: 9, min: 0), isFinished: false),
-                Kadai(id: "004", lectureName: "電気電子計測", assignmentInfo: "第1回レポート", dueDate: generateDate(y: 2020, mo: 10, d: 10, h: 9, min: 0), isFinished: false),
-                Kadai(id: "005", lectureName: "電磁気学1", assignmentInfo: "確認問題１", dueDate: generateDate(y: 2020, mo: 10, d: 20, h: 9, min: 0), isFinished: false)
-            ]
-            KadaiViewLarge(kadaiList: kadais)
+            KadaiViewLarge(kadaiList: entry.kadai)
         }
         
     }
@@ -77,6 +95,6 @@ struct miniPandAWidget: Widget {
             WidgetEntryView(entry: entry)
                 .background(mpColor.background)
         }
-        .supportedFamilies([.systemMedium,.systemLarge])
+        .supportedFamilies([.systemLarge])
     }
 }

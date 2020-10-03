@@ -12,5 +12,6 @@ struct Kadai: Identifiable, Codable{
     let lectureName: String
     let assignmentInfo: String
     let dueDate: Date?
+    var dispDate = Date()
     let isFinished: Bool
 }
