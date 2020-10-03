@@ -31,6 +31,8 @@
 		97F92F7E2528621E007CC58C /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771AFB625285D9700D02198 /* Colors.swift */; };
 		97F92F8425289635007CC58C /* DueDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F92F8325289635007CC58C /* DueDates.swift */; };
 		97F92F8925289BFF007CC58C /* DueDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F92F8325289635007CC58C /* DueDates.swift */; };
+		97F92F8F2528E569007CC58C /* KadaiLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F92F8E2528E569007CC58C /* KadaiLoader.swift */; };
+		97F92F942528E613007CC58C /* KadaiLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F92F8E2528E569007CC58C /* KadaiLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +100,7 @@
 		9792405A2527229C008F5F98 /* Kadai.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kadai.swift; sourceTree = "<group>"; };
 		9792405F252724D8008F5F98 /* KadaiVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KadaiVIew.swift; sourceTree = "<group>"; };
 		97F92F8325289635007CC58C /* DueDates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DueDates.swift; sourceTree = "<group>"; };
+		97F92F8E2528E569007CC58C /* KadaiLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KadaiLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				978A106B252729EF002C6C19 /* miniPandA.swift */,
+				97F92F8E2528E569007CC58C /* KadaiLoader.swift */,
 				978A106D252729EF002C6C19 /* miniPandA.intentdefinition */,
 				978A106E252729F4002C6C19 /* Assets.xcassets */,
 				978A1070252729F4002C6C19 /* Info.plist */,
@@ -388,6 +392,7 @@
 				97F92F7E2528621E007CC58C /* Colors.swift in Sources */,
 				978A107E25272A92002C6C19 /* Kadai.swift in Sources */,
 				978A1071252729F4002C6C19 /* miniPandA.intentdefinition in Sources */,
+				97F92F942528E613007CC58C /* KadaiLoader.swift in Sources */,
 				978A106C252729EF002C6C19 /* miniPandA.swift in Sources */,
 				978A108325272A9C002C6C19 /* KadaiVIew.swift in Sources */,
 			);
@@ -398,6 +403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				97F92F8425289635007CC58C /* DueDates.swift in Sources */,
+				97F92F8F2528E569007CC58C /* KadaiLoader.swift in Sources */,
 				9792405B2527229C008F5F98 /* Kadai.swift in Sources */,
 				9771AFA7252744FB00D02198 /* HeaderView.swift in Sources */,
 				9792402F25272222008F5F98 /* ContentView.swift in Sources */,

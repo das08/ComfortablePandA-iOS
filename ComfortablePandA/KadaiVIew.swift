@@ -22,6 +22,8 @@ struct KadaiViewLarge: View{
     
     var body: some View {
         VStack(alignment:.leading ,spacing: 20){
+            Spacer()
+                .frame(height:5)
             HeaderView(updatedTime: "2020/10/02 15:00 更新")
             VStack(alignment:.leading, spacing:5){
                 ForEach(kadaiList){entry in
@@ -44,7 +46,6 @@ struct KadaiViewLarge: View{
                                 )
                                 .padding(.horizontal, 5)
                             Text("あと\(time.days)日\(time.hour)時間\(time.minute)分")
-//                            Text(entry.dueDate!, style: .relative)
                                 .font(.system(size: 14))
                                 .fontWeight(.bold)
                                 .foregroundColor(Color(red: 100/255 , green: 100/255, blue: 100/255))
