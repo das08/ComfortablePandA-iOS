@@ -39,7 +39,7 @@ struct KadaiViewLarge: View{
                                 .padding(.vertical, 3)
                                 .background(
                                     RoundedRectangle(cornerRadius: 10)
-                                        .fill(Color.red)
+                                        .fill(getBadgeColor(days: time.days))
 //                                        .frame(width: 70, height: 15)
                                 )
                                 .padding(.horizontal, 5)

@@ -2,10 +2,11 @@
 //  DueDates.swift
 //  ComfortablePandA
 //
-//  Created by Kazuki Takeda on 2020/10/03.
+//  Created by das08 on 2020/10/03.
 //
 
 import Foundation
+import SwiftUI
 
 struct kadaiDueDate: Codable {
     let days: Int
@@ -46,10 +47,27 @@ func generateDate(y:Int, mo:Int, d:Int, h:Int, min:Int) -> Date? {
 }
 
 func getTimeRemain(dueDate: Date?) -> kadaiDueDate {
-//    let timeDiff = Date() - dueDate!
     let timeDiff = dueDate!-Date()
     let days = floor(Double(timeDiff.second!) / (3600 * 24))
     let hours = floor((Double(timeDiff.second!) - (days * 3600 * 24)) / 3600)
     let minutes = floor((Double(timeDiff.second!) - (days * 3600 * 24 + hours * 3600)) / 60)
     return kadaiDueDate(days: Int(days), hour: Int(hours), minute: Int(minutes))
+}
+
+func getBadgeColor(days: Int) -> Color {
+    let badgeColor: Color
+    let ddColor = DueDateColor()
+    
+    switch days {
+    case ...1:
+        badgeColor = ddColor.red
+    case 2...5:
+        badgeColor = ddColor.yellow
+    case 6...14:
+        badgeColor = ddColor.green
+    default:
+        badgeColor = ddColor.gray
+    }
+    
+    return badgeColor
 }
