@@ -24,7 +24,7 @@ struct HeaderView: View {
                     .padding(.trailing, 16)
                 Spacer()
                 Text(updatedTime)
-                    .foregroundColor(.gray)
+//                    .foregroundColor(.gray)
                     .font(.system(size: 14))
                     .padding(16)
             }.frame(height: 40, alignment: .topLeading)

@@ -27,34 +27,30 @@ struct KadaiViewLarge: View{
                 ForEach(kadaiList){entry in
                     VStack(alignment:.leading, spacing:5){
                         HStack(spacing:0){
-                            Circle()
-                                .fill(Color.blue)
-                                .padding(.trailing, 5)
-                                .frame(width: 20, height: 20)
-//                            Text("24時間以内")
-//                                    .fontWeight(.bold)
-//                                    .font(.system(size: 11))
-//                                    .foregroundColor(.white)
-//                                    .padding(.horizontal)
-//                                    .background(
-//                                            RoundedRectangle(cornerRadius: 5)
-//                                                .fill(Color.red)
-//                                                .frame(width: 70, height: 15)
-//                                        )
                             Text(entry.lectureName)
-                                .font(.system(size: 14))
+                                .font(.system(size: 12))
                                 .fontWeight(.bold)
+                                .foregroundColor(.white)
                                 .lineLimit(1)
-                                .padding(.trailing, 5)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 3)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(Color.red)
+//                                        .frame(width: 70, height: 15)
+                                )
+                                .padding(.horizontal, 5)
                             Text("あと0日5時間30分")
                                 .font(.system(size: 12))
                                 .fontWeight(.bold)
-                                .foregroundColor(.gray)
+                                .foregroundColor(Color(red: 100/255 , green: 100/255, blue: 100/255))
                         }
                         HStack(alignment: .center, spacing: 0){
                             Text(entry.assignmentInfo)
                                 .font(.system(size: 14))
+                                .lineLimit(1)
                                 .padding(.leading)
+                                .padding(.bottom,5)
                         }
                         
                     }
