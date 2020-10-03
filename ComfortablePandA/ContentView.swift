@@ -13,9 +13,9 @@ struct ContentView: View {
     var kadaiList: Data = Data()
     
     let kadais = [
-        Kadai(id: "001", lectureName: "Lec1", assignmentInfo: "Quiz1", dueDate: Date(), isFinished: false),
-        Kadai(id: "002", lectureName: "Lec2", assignmentInfo: "Quiz2", dueDate: Date(), isFinished: false),
-        Kadai(id: "003", lectureName: "Lec3", assignmentInfo: "Quiz3", dueDate: Date(), isFinished: false)
+        Kadai(id: "001", lectureName: "Lec1", assignmentInfo: "Quiz1", dueDate: generateDate(y: 2020, mo: 10, d: 8, h: 9, min: 0), isFinished: false),
+        Kadai(id: "002", lectureName: "Lec2", assignmentInfo: "Quiz2", dueDate: generateDate(y: 2020, mo: 10, d: 8, h: 9, min: 0), isFinished: false),
+        Kadai(id: "003", lectureName: "Lec3", assignmentInfo: "Quiz3", dueDate: generateDate(y: 2020, mo: 10, d: 8, h: 9, min: 0), isFinished: false)
     ]
     
     var body: some View {

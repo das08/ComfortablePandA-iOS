@@ -25,6 +25,9 @@ struct KadaiViewLarge: View{
             HeaderView(updatedTime: "2020/10/02 15:00 更新")
             VStack(alignment:.leading, spacing:5){
                 ForEach(kadaiList){entry in
+                    
+                    let time = getTimeRemain(dueDate: entry.dueDate)
+                    
                     VStack(alignment:.leading, spacing:5){
                         HStack(spacing:0){
                             Text(entry.lectureName)
@@ -40,10 +43,11 @@ struct KadaiViewLarge: View{
 //                                        .frame(width: 70, height: 15)
                                 )
                                 .padding(.horizontal, 5)
-                            Text("あと0日5時間30分")
+                            Text("あと\(time.days)日\(time.hour)時間\(time.minute)分")
                                 .font(.system(size: 12))
                                 .fontWeight(.bold)
                                 .foregroundColor(Color(red: 100/255 , green: 100/255, blue: 100/255))
+                            
                         }
                         HStack(alignment: .center, spacing: 0){
                             Text(entry.assignmentInfo)
@@ -59,7 +63,8 @@ struct KadaiViewLarge: View{
             }
             Spacer()
         }
-        
-        
     }
 }
+
+
+

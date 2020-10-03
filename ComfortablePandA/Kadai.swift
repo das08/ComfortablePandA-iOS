@@ -11,6 +11,6 @@ struct Kadai: Identifiable, Codable{
     var id: String
     let lectureName: String
     let assignmentInfo: String
-    let dueDate: Date
+    let dueDate: Date?
     let isFinished: Bool
 }

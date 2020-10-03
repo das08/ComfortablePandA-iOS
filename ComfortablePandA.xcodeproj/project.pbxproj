@@ -10,6 +10,7 @@
 		9771AFA7252744FB00D02198 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771AFA6252744FB00D02198 /* HeaderView.swift */; };
 		9771AFAC2527451900D02198 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771AFA6252744FB00D02198 /* HeaderView.swift */; };
 		9771AFB1252745A800D02198 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9792403025272228008F5F98 /* Assets.xcassets */; };
+		9771AFB725285D9700D02198 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771AFB625285D9700D02198 /* Colors.swift */; };
 		978A1067252729EF002C6C19 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978A1066252729EF002C6C19 /* WidgetKit.framework */; };
 		978A1069252729EF002C6C19 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978A1068252729EF002C6C19 /* SwiftUI.framework */; };
 		978A106C252729EF002C6C19 /* miniPandA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978A106B252729EF002C6C19 /* miniPandA.swift */; };
@@ -27,6 +28,9 @@
 		9792404A25272228008F5F98 /* ComfortablePandAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9792404925272228008F5F98 /* ComfortablePandAUITests.swift */; };
 		9792405B2527229C008F5F98 /* Kadai.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9792405A2527229C008F5F98 /* Kadai.swift */; };
 		97924060252724D9008F5F98 /* KadaiVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9792405F252724D8008F5F98 /* KadaiVIew.swift */; };
+		97F92F7E2528621E007CC58C /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771AFB625285D9700D02198 /* Colors.swift */; };
+		97F92F8425289635007CC58C /* DueDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F92F8325289635007CC58C /* DueDates.swift */; };
+		97F92F8925289BFF007CC58C /* DueDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F92F8325289635007CC58C /* DueDates.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +73,7 @@
 
 /* Begin PBXFileReference section */
 		9771AFA6252744FB00D02198 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		9771AFB625285D9700D02198 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		978A105C2527282B002C6C19 /* ComfortablePandA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ComfortablePandA.entitlements; sourceTree = "<group>"; };
 		978A1064252729EF002C6C19 /* miniPandAExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = miniPandAExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		978A1066252729EF002C6C19 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -92,6 +97,7 @@
 		9792404B25272228008F5F98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9792405A2527229C008F5F98 /* Kadai.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kadai.swift; sourceTree = "<group>"; };
 		9792405F252724D8008F5F98 /* KadaiVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KadaiVIew.swift; sourceTree = "<group>"; };
+		97F92F8325289635007CC58C /* DueDates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DueDates.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,10 +186,12 @@
 				9792402C25272222008F5F98 /* ComfortablePandAApp.swift */,
 				9792402E25272222008F5F98 /* ContentView.swift */,
 				9792405F252724D8008F5F98 /* KadaiVIew.swift */,
+				97F92F8325289635007CC58C /* DueDates.swift */,
 				9792403025272228008F5F98 /* Assets.xcassets */,
 				9792403525272228008F5F98 /* Info.plist */,
 				9792403225272228008F5F98 /* Preview Content */,
 				9771AFA6252744FB00D02198 /* HeaderView.swift */,
+				9771AFB625285D9700D02198 /* Colors.swift */,
 			);
 			path = ComfortablePandA;
 			sourceTree = "<group>";
@@ -376,6 +384,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9771AFAC2527451900D02198 /* HeaderView.swift in Sources */,
+				97F92F8925289BFF007CC58C /* DueDates.swift in Sources */,
+				97F92F7E2528621E007CC58C /* Colors.swift in Sources */,
 				978A107E25272A92002C6C19 /* Kadai.swift in Sources */,
 				978A1071252729F4002C6C19 /* miniPandA.intentdefinition in Sources */,
 				978A106C252729EF002C6C19 /* miniPandA.swift in Sources */,
@@ -387,9 +397,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97F92F8425289635007CC58C /* DueDates.swift in Sources */,
 				9792405B2527229C008F5F98 /* Kadai.swift in Sources */,
 				9771AFA7252744FB00D02198 /* HeaderView.swift in Sources */,
 				9792402F25272222008F5F98 /* ContentView.swift in Sources */,
+				9771AFB725285D9700D02198 /* Colors.swift in Sources */,
 				978A1072252729F4002C6C19 /* miniPandA.intentdefinition in Sources */,
 				9792402D25272222008F5F98 /* ComfortablePandAApp.swift in Sources */,
 				97924060252724D9008F5F98 /* KadaiVIew.swift in Sources */,
