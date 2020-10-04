@@ -24,20 +24,20 @@ struct ContentView: View {
     
     
     var body: some View {
-        
-
         Text("1")
             .onAppear(
                 perform: {
-                    let kadaiList = SakaiAPI.shared.getKK()
+                    let kadaiList = SakaiAPI.shared.getLL()
                     print(kadaiList)
                     
                 }
             )
-        VStack(spacing: 30){
-            let kadaiList = SakaiAPI.shared.getKK()
-            ForEach(kadaiList){kadai in
-                Text(kadai.title)
+        ScrollView(.vertical){
+            VStack(spacing: 30){
+                let kadaiList = SakaiAPI.shared.getLL()
+                ForEach(kadaiList){kadai in
+                    Text(kadai.title)
+                }
             }
         }
     }

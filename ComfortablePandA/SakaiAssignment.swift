@@ -36,7 +36,7 @@ final class SakaiAPI {
         case url
     }
     
-    func fetchAssignmentsFromPandA2() throws -> [AssignmentEntry]? {
+    func fetchAssignmentsFromPandA2() -> [AssignmentEntry]? {
         
         let urlString = "https://das82.com/my.json"
         let url = URL(string: urlString)!
@@ -82,13 +82,18 @@ final class SakaiAPI {
         
         return kadaiList
     }
+    
+    func getLL() -> [AssignmentEntry] {
+        var kadaiList: [AssignmentEntry]
+
+        kadaiList = SakaiAPI.shared.fetchAssignmentsFromPandA2()!
+
+        return kadaiList
+    }
 }
 
 struct SakaiAssignment: Codable {
     let assignment_collection: [AssignmentEntry]
-    init() {
-        assignment_collection = [AssignmentEntry()]
-    }
 }
 
 struct AssignmentEntry: Codable, Identifiable {
@@ -96,19 +101,10 @@ struct AssignmentEntry: Codable, Identifiable {
     let id: String
     let title: String
     let dueTime: AssignmentEntryDueTime
-    init() {
-        context = ""
-        id = ""
-        title = ""
-        dueTime = AssignmentEntryDueTime()
-    }
 }
 
 struct AssignmentEntryDueTime: Codable {
     let time: Int
-    init() {
-        time = 0
-    }
 }
 
 

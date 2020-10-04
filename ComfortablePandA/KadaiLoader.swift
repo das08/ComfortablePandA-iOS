@@ -18,26 +18,26 @@ internal func getKadaiFromPandA() -> [Kadai] {
     ]
 }
 
-class GetKadaiFromPandA {
-    func loadKadai(completion: @escaping (SakaiAssignment?)->Void){
-        let url: URL = URL(string: "https://das82.com/my.json")!
-        let task: URLSessionTask = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
-            
-            var result: SakaiAssignment?
-            do {
-                result = try JSONDecoder().decode(SakaiAssignment.self, from: data!)
-                completion(result)
-                
-            }
-            catch {
-                print("error:", error.localizedDescription)
-                completion(SakaiAssignment())
-            }
-
-        })
-        task.resume()
-        
-    }
-}
+//class GetKadaiFromPandA {
+//    func loadKadai(completion: @escaping (SakaiAssignment?)->Void){
+//        let url: URL = URL(string: "https://das82.com/my.json")!
+//        let task: URLSessionTask = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
+//            
+//            var result: SakaiAssignment?
+//            do {
+//                result = try JSONDecoder().decode(SakaiAssignment.self, from: data!)
+//                completion(result)
+//                
+//            }
+//            catch {
+//                print("error:", error.localizedDescription)
+//                completion(SakaiAssignment())
+//            }
+//
+//        })
+//        task.resume()
+//        
+//    }
+//}
 
 
