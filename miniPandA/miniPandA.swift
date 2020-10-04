@@ -30,10 +30,10 @@ struct Provider: TimelineProvider {
         
         var entries = [KadaiEntry]()
         let currentDate = Date()
-        let nextLoadDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
+//        let nextLoadDate = Calendar.current.date(byAdding: .hour, value: 1, to: currentDate)!
         
         // Create Timeline object for an hour
-        for offset in 0 ..< 60 {
+        for offset in 0 ..< 30 {
             let entryDate: Date = Calendar.current.date(byAdding: .minute, value: offset, to: currentDate)!
             var dispDateModified_kadaiList = [Kadai]()
             for var entry in kadaiList {
@@ -43,7 +43,8 @@ struct Provider: TimelineProvider {
             entries.append(KadaiEntry(date: entryDate, kadai:dispDateModified_kadaiList))
         }
 
-        let timeline = Timeline(entries: entries, policy: .after(nextLoadDate))
+//        let timeline = Timeline(entries: entries, policy: .after(nextLoadDate))
+        let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
     }
     

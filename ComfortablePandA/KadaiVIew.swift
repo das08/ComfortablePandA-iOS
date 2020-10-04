@@ -29,6 +29,7 @@ struct KadaiViewLarge: View{
                 ForEach(kadaiList){entry in
                     
                     let time = getTimeRemain(dueDate: entry.dueDate, dispDate: entry.dispDate)
+                    let daysUntil = getDaysUntil(dueDate: entry.dueDate, dispDate: entry.dispDate)
                     
                     VStack(alignment:.leading, spacing:5){
                         HStack(spacing:0){
@@ -41,7 +42,7 @@ struct KadaiViewLarge: View{
                                 .padding(.vertical, 3)
                                 .background(
                                     RoundedRectangle(cornerRadius: 10)
-                                        .fill(getBadgeColor(days: time.days))
+                                        .fill(getBadgeColor(days: daysUntil))
 //                                        .frame(width: 70, height: 15)
                                 )
                                 .padding(.horizontal, 5)

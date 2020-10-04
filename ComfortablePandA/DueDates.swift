@@ -54,20 +54,17 @@ func getTimeRemain(dueDate: Date?, dispDate: Date?) -> kadaiDueDate {
     return kadaiDueDate(days: Int(days), hour: Int(hours), minute: Int(minutes))
 }
 
-func getBadgeColor(days: Int) -> Color {
-    let badgeColor: Color
-    let ddColor = DueDateColor()
+func getDaysUntil(dueDate: Date?, dispDate: Date?) -> Int {
+    let timeDiff = dueDate!-dispDate!
+    var daysUntil: Int
     
-    switch days {
-    case ...1:
-        badgeColor = ddColor.red
-    case 2...5:
-        badgeColor = ddColor.yellow
-    case 6...14:
-        badgeColor = ddColor.green
+    switch timeDiff.second! {
+    case 0...:
+        daysUntil = (timeDiff.second! + (3600 * 24) - 1) / (3600 * 24)
     default:
-        badgeColor = ddColor.gray
+        daysUntil = -1
     }
     
-    return badgeColor
+    return daysUntil
 }
+
