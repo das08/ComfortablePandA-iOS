@@ -10,7 +10,7 @@ final class SakaiAPI {
     
     static let shared = SakaiAPI()
     
-    func fetchAssignmentsFromPandA(completion: @escaping ([AssignmentEntry]) -> ()) {
+    func fetchAssignmentsFromPandA_old(completion: @escaping ([AssignmentEntry]) -> ()) {
         
         let urlString = "https://das82.com/my.json"
         let url = URL(string: urlString)!
@@ -32,11 +32,8 @@ final class SakaiAPI {
         task.resume()
     }
     
-    enum SakaiError: Error{
-        case url
-    }
-    
-    func fetchAssignmentsFromPandA2() -> [AssignmentEntry]? {
+
+    func fetchAssignmentsFromPandA() -> [AssignmentEntry]? {
         
         let urlString = "https://das82.com/my.json"
         let url = URL(string: urlString)!
@@ -77,16 +74,16 @@ final class SakaiAPI {
         }
         print(kadaiList)
         DispatchQueue.main.async {
-            SakaiAPI.shared.fetchAssignmentsFromPandA(completion: anonymousFunc)
+            SakaiAPI.shared.fetchAssignmentsFromPandA_old(completion: anonymousFunc)
         }
         
         return kadaiList
     }
     
-    func getLL() -> [AssignmentEntry] {
+    func getKadaiList() -> [AssignmentEntry] {
         var kadaiList: [AssignmentEntry]
 
-        kadaiList = SakaiAPI.shared.fetchAssignmentsFromPandA2()!
+        kadaiList = SakaiAPI.shared.fetchAssignmentsFromPandA()!
 
         return kadaiList
     }

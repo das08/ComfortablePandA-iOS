@@ -24,20 +24,28 @@ struct ContentView: View {
     
     
     var body: some View {
-        Text("1")
+        Text("課題一覧")
             .onAppear(
                 perform: {
-                    let kadaiList = SakaiAPI.shared.getLL()
+                    let kadaiList = SakaiAPI.shared.getKadaiList()
                     print(kadaiList)
                     
                 }
             )
-        ScrollView(.vertical){
-            VStack(spacing: 30){
-                let kadaiList = SakaiAPI.shared.getLL()
-                ForEach(kadaiList){kadai in
-                    Text(kadai.title)
+        List{
+            let kadaiList = SakaiAPI.shared.getKadaiList()
+            ForEach(kadaiList){kadai in
+                VStack(alignment: .leading){
+                    Text(kadai.context)
+                        .fontWeight(.bold)
+                    HStack{
+                        Text(kadai.title)
+                            .lineLimit(1)
+                        Text(String(kadai.dueTime.time))
+                    }
+                    
                 }
+                
             }
         }
     }
