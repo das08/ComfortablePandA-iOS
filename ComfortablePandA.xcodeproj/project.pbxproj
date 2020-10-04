@@ -33,6 +33,8 @@
 		97F92F8925289BFF007CC58C /* DueDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F92F8325289635007CC58C /* DueDates.swift */; };
 		97F92F8F2528E569007CC58C /* KadaiLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F92F8E2528E569007CC58C /* KadaiLoader.swift */; };
 		97F92F942528E613007CC58C /* KadaiLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F92F8E2528E569007CC58C /* KadaiLoader.swift */; };
+		97F92F9A2529DB2B007CC58C /* SakaiAssignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F92F992529DB2A007CC58C /* SakaiAssignment.swift */; };
+		97F92F9F2529DBAC007CC58C /* SakaiAssignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F92F992529DB2A007CC58C /* SakaiAssignment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +103,7 @@
 		9792405F252724D8008F5F98 /* KadaiVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KadaiVIew.swift; sourceTree = "<group>"; };
 		97F92F8325289635007CC58C /* DueDates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DueDates.swift; sourceTree = "<group>"; };
 		97F92F8E2528E569007CC58C /* KadaiLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KadaiLoader.swift; sourceTree = "<group>"; };
+		97F92F992529DB2A007CC58C /* SakaiAssignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SakaiAssignment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,7 +153,6 @@
 			isa = PBXGroup;
 			children = (
 				978A106B252729EF002C6C19 /* miniPandA.swift */,
-				97F92F8E2528E569007CC58C /* KadaiLoader.swift */,
 				978A106D252729EF002C6C19 /* miniPandA.intentdefinition */,
 				978A106E252729F4002C6C19 /* Assets.xcassets */,
 				978A1070252729F4002C6C19 /* Info.plist */,
@@ -196,6 +198,8 @@
 				9792403225272228008F5F98 /* Preview Content */,
 				9771AFA6252744FB00D02198 /* HeaderView.swift */,
 				9771AFB625285D9700D02198 /* Colors.swift */,
+				97F92F992529DB2A007CC58C /* SakaiAssignment.swift */,
+				97F92F8E2528E569007CC58C /* KadaiLoader.swift */,
 			);
 			path = ComfortablePandA;
 			sourceTree = "<group>";
@@ -388,6 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9771AFAC2527451900D02198 /* HeaderView.swift in Sources */,
+				97F92F9F2529DBAC007CC58C /* SakaiAssignment.swift in Sources */,
 				97F92F8925289BFF007CC58C /* DueDates.swift in Sources */,
 				97F92F7E2528621E007CC58C /* Colors.swift in Sources */,
 				978A107E25272A92002C6C19 /* Kadai.swift in Sources */,
@@ -402,6 +407,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97F92F9A2529DB2B007CC58C /* SakaiAssignment.swift in Sources */,
 				97F92F8425289635007CC58C /* DueDates.swift in Sources */,
 				97F92F8F2528E569007CC58C /* KadaiLoader.swift in Sources */,
 				9792405B2527229C008F5F98 /* Kadai.swift in Sources */,
