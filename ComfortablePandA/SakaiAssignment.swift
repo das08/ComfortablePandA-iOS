@@ -35,7 +35,7 @@ final class SakaiAPI {
 
     func fetchAssignmentsFromPandA() -> [AssignmentEntry]? {
         
-        let urlString = "https://das82.com/my.json"
+        let urlString = "https://das82.com/my2.json"
         let url = URL(string: urlString)!
         
         var assignmentEntry: [AssignmentEntry]?
@@ -80,7 +80,7 @@ final class SakaiAPI {
         return kadaiList
     }
     
-    func getKadaiList() -> [AssignmentEntry] {
+    func getRawKadaiList() -> [AssignmentEntry] {
         var kadaiList: [AssignmentEntry]
 
         kadaiList = SakaiAPI.shared.fetchAssignmentsFromPandA()!

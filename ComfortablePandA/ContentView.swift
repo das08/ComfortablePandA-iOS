@@ -27,22 +27,24 @@ struct ContentView: View {
         Text("課題一覧")
             .onAppear(
                 perform: {
-                    let kadaiList = SakaiAPI.shared.getKadaiList()
-                    print(kadaiList)
+                    let kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
+//                    print(kadaiList[0])
                     
                 }
             )
         List{
-            let kadaiList = SakaiAPI.shared.getKadaiList()
+
+            let kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
             ForEach(kadaiList){kadai in
+                
                 VStack(alignment: .leading){
-                    Text(kadai.context)
-                        .fontWeight(.bold)
                     HStack{
-                        Text(kadai.title)
-                            .lineLimit(1)
-                        Text(String(kadai.dueTime.time))
+                        Text(kadai.lectureName)
+                            .fontWeight(.bold)
+                        Text(dispDate(date: kadai.dueDate!))
                     }
+                    Text(kadai.assignmentInfo)
+                        .lineLimit(1)
                     
                 }
                 

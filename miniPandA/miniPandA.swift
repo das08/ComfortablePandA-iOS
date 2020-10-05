@@ -16,7 +16,8 @@ struct KadaiEntry: TimelineEntry {
 struct Provider: TimelineProvider {
 //    @AppStorage("kadai", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
 //    var kadaiList: Data = Data()
-    var kadaiList = getKadaiFromPandA()
+//    var kadaiList = getKadaiFromPandA()
+    let kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
     
     
     func getSnapshot(in context: Context, completion: @escaping (KadaiEntry) -> Void) {
@@ -36,7 +37,8 @@ struct Provider: TimelineProvider {
         for offset in 0 ..< 2 {
             let entryDate: Date = Calendar.current.date(byAdding: .minute, value: offset, to: currentDate)!
             var dispDateModified_kadaiList = [Kadai]()
-            let kadaiList2 = getKadaiFromPandA()
+//            let kadaiList2 = getKadaiFromPandA()
+            let kadaiList2 = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
             for var entry in kadaiList2 {
                 entry.dispDate = entryDate
                 dispDateModified_kadaiList.append(entry)
