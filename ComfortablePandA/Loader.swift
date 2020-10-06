@@ -1,44 +1,44 @@
 //
-//  KadaiLoader.swift
+//  Loader.swift
 //  ComfortablePandA
 //
 //  Created by das08 on 2020/10/04.
 //
 
 import Foundation
-//import SwiftUI
+import SwiftUI
 
-func getKadaiFromPandA() -> [Kadai] {
-    var kadaiList = [
-        Kadai(id: "001", lectureName: "電気電子工学基礎実験", assignmentInfo: "第２週予習課題（19~21班）", dueDate: generateDate(y: 2020, mo: 10, d: 6, h: 12, min: 30), isFinished: false),
-        Kadai(id: "002", lectureName: "電気電子数学1", assignmentInfo: "Assignment 1", dueDate: generateDate(y: 2020, mo: 10, d: 6, h: 9, min: 0), isFinished: false),
-        Kadai(id: "003", lectureName: "電気電子計測", assignmentInfo: "第1回レポート", dueDate: generateDate(y: 2020, mo: 10, d: 10, h: 9, min: 0), isFinished: false),
-        
-        Kadai(id: "005", lectureName: "電磁気学1", assignmentInfo: "確認問題１", dueDate: generateDate(y: 2020, mo: 10, d: 20, h: 9, min: 0), isFinished: false),
-        Kadai(id: "006", lectureName: "電磁気学1", assignmentInfo: "確認問題１", dueDate: generateDate(y: 2020, mo: 10, d: 20, h: 9, min: 0), isFinished: false),
-        Kadai(id: "004", lectureName: "電気電子計測", assignmentInfo: "第1回レポート", dueDate: generateDate(y: 2020, mo: 10, d: 13, h: 9, min: 0), isFinished: false)
-        
-    ]
-    kadaiList = sortKadaiList(kadaiList: kadaiList)
-    var validKadaiList = [Kadai]()
+class Loader {
+    static let shared = Loader()
     
-    var entryCount = 0
+    @AppStorage("kadai", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
+    private var storedKadaiList: Data = Data()
+
+    @AppStorage("lectureInfo", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
+    private var storedLectureInfo: Data = Data()
     
-    for entry in kadaiList {
-        if entryCount >= 5 {
-            break
-        }
+    func loadLectureInfoFromStorage() -> [LectureInfo]? {
+        var loadLectureInfo: [LectureInfo]
+        guard let load = try? JSONDecoder().decode([LectureInfo].self, from: storedLectureInfo) else { return nil }
         
-        let daysUntil = getDaysUntil(dueDate: entry.dueDate, dispDate: entry.dispDate)
+        loadLectureInfo = load
         
-        if daysUntil > 0 {
-            validKadaiList.append(entry)
-            entryCount += 1
-        }
+        return loadLectureInfo
     }
     
-    return validKadaiList
+    func loadKadaiListFromStorage() -> [Kadai]? {
+        var loadKadaiList: [Kadai]
+        guard let load = try? JSONDecoder().decode([Kadai].self, from: storedKadaiList) else { return nil }
+        
+        loadKadaiList = load
+        
+        return loadKadaiList
+    }
+    
 }
+
+
+
 
 func sortKadaiList(kadaiList: [Kadai]) -> [Kadai] {
     return kadaiList.sorted { (l: Kadai, r: Kadai) in
@@ -53,7 +53,12 @@ func sortKadaiList(kadaiList: [Kadai]) -> [Kadai] {
 
 func createKadaiList(rawKadaiList: [AssignmentEntry]) -> [Kadai] {
     var kadaiList = [Kadai]()
-    let lectureInfoList = SakaiAPI.shared.fetchLectureInfoFromPandA()
+    var lectureInfoList = Loader.shared.loadLectureInfoFromStorage()
+    
+    if lectureInfoList == nil {
+        lectureInfoList = SakaiAPI.shared.fetchLectureInfoFromPandA()
+        Saver.shared.saveLectureInfoToStorage(lectureInfoList: lectureInfoList!)
+    }
     
     for rawEntry in rawKadaiList {
         let id = rawEntry.id

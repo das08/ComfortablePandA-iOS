@@ -34,6 +34,7 @@ struct Provider: TimelineProvider {
 //        let nextLoadDate = Calendar.current.date(byAdding: .hour, value: 1, to: currentDate)!
         
         // Create Timeline object for an hour
+        print("loaded")
         for offset in 0 ..< 2 {
             let entryDate: Date = Calendar.current.date(byAdding: .minute, value: offset, to: currentDate)!
             var dispDateModified_kadaiList = [Kadai]()

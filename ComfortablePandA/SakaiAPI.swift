@@ -96,6 +96,8 @@ final class SakaiAPI {
         
         _ = semaphore.wait(timeout: .distantFuture)
         
+        print("load lecID")
+        
         return lectureEntry
     }
     

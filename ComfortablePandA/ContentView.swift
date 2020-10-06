@@ -10,8 +10,10 @@ import SwiftUI
 
 struct ContentView: View {
     
-//    @AppStorage("kadai", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
-//    var kadaiList: Data = Data()
+    @AppStorage("kadai", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
+    private var storedKadaiList: Data = Data()
+    
+    @State private var kadaiList = [Kadai]()
 //
 //    let kadais = [
 //        Kadai(id: "001", lectureName: "Lec1", assignmentInfo: "Quiz1", dueDate: generateDate(y: 2020, mo: 10, d: 4, h: 9, min: 0), isFinished: false),
@@ -32,9 +34,23 @@ struct ContentView: View {
                     
                 }
             )
+        Button("Load and Save"){
+            let kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
+            
+            guard let saveKadaiList = try? JSONEncoder().encode(kadaiList) else { return }
+            self.storedKadaiList = saveKadaiList
+            print("saved")
+        }
+        Button("Load and Show"){
+            guard let loadKadaiList = try? JSONDecoder().decode([Kadai].self, from: storedKadaiList) else { return }
+            
+            kadaiList = loadKadaiList
+            print("loaded")
+        }
         List{
 
-            let kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
+//            let kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
+            
             
             ForEach(kadaiList){kadai in
                 
