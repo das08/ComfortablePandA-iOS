@@ -19,12 +19,14 @@ struct KadaiView: View{
 
 struct KadaiViewLarge: View{
     let kadaiList: [Kadai]
+    let kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
     
     var body: some View {
         VStack(alignment:.leading ,spacing: 0){
             Spacer()
                 .frame(height:8)
-            HeaderView(updatedTime: "2020/10/02 15:00 更新")
+//            HeaderView(updatedTime: "2020/10/02 15:00 更新")
+            HeaderView(updatedTime: kadaiFetchedTime)
             Spacer()
                 .frame(height:15)
             VStack(alignment:.leading, spacing:5){

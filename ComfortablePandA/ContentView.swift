@@ -13,7 +13,7 @@ struct ContentView: View {
     @AppStorage("kadai", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
     private var storedKadaiList: Data = Data()
     
-    @State private var kadaiList = [Kadai]()
+    @State private var kadaiList = Loader.shared.loadKadaiListFromStorage()!
 //
 //    let kadais = [
 //        Kadai(id: "001", lectureName: "Lec1", assignmentInfo: "Quiz1", dueDate: generateDate(y: 2020, mo: 10, d: 4, h: 9, min: 0), isFinished: false),
@@ -26,14 +26,14 @@ struct ContentView: View {
     
     
     var body: some View {
-        Text("課題一覧")
-            .onAppear(
-                perform: {
-                    let kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
-//                    print(kadaiList)
-                    
-                }
-            )
+//        Text("課題一覧")
+//            .onAppear(
+//                perform: {
+//                    let kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
+////                    print(kadaiList)
+//
+//                }
+//            )
         Button("Load and Save"){
             let kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
             

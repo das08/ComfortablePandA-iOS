@@ -16,28 +16,6 @@ final class SakaiAPI {
     
     static let shared = SakaiAPI()
     
-    func fetchAssignmentsFromPandA_old(completion: @escaping ([AssignmentEntry]) -> ()) {
-        
-        let urlString = "https://das82.com/my.json"
-        let url = URL(string: urlString)!
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else {
-                print("data is nil")
-                return
-            }
-            
-            guard let kadaiList = try? JSONDecoder().decode(AssignmentCollection.self, from: data) else {
-                print("cannnot get kadai")
-                return
-            }
-            
-            completion(kadaiList.assignment_collection)
-//            print(kadaiList.assignment_collection)
-//            print("success")
-        }
-        task.resume()
-    }
-    
 
     func fetchAssignmentsFromPandA() -> [AssignmentEntry]? {
         
@@ -65,6 +43,10 @@ final class SakaiAPI {
         task.resume()
         
         _ = semaphore.wait(timeout: .distantFuture)
+        
+        print("load kadaiList from panda")
+        
+        Saver.shared.saveKadaiFetchedTimeToStorage()
         
         return assignmentEntry
     }
@@ -96,27 +78,11 @@ final class SakaiAPI {
         
         _ = semaphore.wait(timeout: .distantFuture)
         
-        print("load lecID")
+        print("load lecID from panda")
         
         return lectureEntry
     }
     
-    func getKK() -> [AssignmentEntry] {
-        var kadaiList = [AssignmentEntry]()
-        let anonymousFunc = { (fetchedKadaiList: [AssignmentEntry]) in
-            
-            kadaiList = fetchedKadaiList
-//            print(kadaiList)
-            
-            
-        }
-        print(kadaiList)
-        DispatchQueue.main.async {
-            SakaiAPI.shared.fetchAssignmentsFromPandA_old(completion: anonymousFunc)
-        }
-        
-        return kadaiList
-    }
     
     func getRawKadaiList() -> [AssignmentEntry] {
         var kadaiList: [AssignmentEntry]
@@ -127,11 +93,12 @@ final class SakaiAPI {
     }
     
     func getLectureInfoList() -> [LectureInfo] {
-        var lectureList: [LectureInfo]
+        var lectureInfoList: [LectureInfo]
 
-        lectureList = SakaiAPI.shared.fetchLectureInfoFromPandA()!
+        lectureInfoList = SakaiAPI.shared.fetchLectureInfoFromPandA()!
+        Saver.shared.saveLectureInfoToStorage(lectureInfoList: lectureInfoList)
 
-        return lectureList
+        return lectureInfoList
     }
     
     

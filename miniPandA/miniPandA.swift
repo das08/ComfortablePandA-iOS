@@ -34,12 +34,11 @@ struct Provider: TimelineProvider {
 //        let nextLoadDate = Calendar.current.date(byAdding: .hour, value: 1, to: currentDate)!
         
         // Create Timeline object for an hour
-        print("loaded")
         for offset in 0 ..< 2 {
             let entryDate: Date = Calendar.current.date(byAdding: .minute, value: offset, to: currentDate)!
             var dispDateModified_kadaiList = [Kadai]()
 //            let kadaiList2 = getKadaiFromPandA()
-            let kadaiList2 = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
+            let kadaiList2 = Loader.shared.loadKadaiListFromStorage()!
             for var entry in kadaiList2 {
                 entry.dispDate = entryDate
                 dispDateModified_kadaiList.append(entry)

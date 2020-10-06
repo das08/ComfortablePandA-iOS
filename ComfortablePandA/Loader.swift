@@ -11,25 +11,47 @@ import SwiftUI
 class Loader {
     static let shared = Loader()
     
+    @AppStorage("lastKadaiFetched", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
+    private var storedKadaiFetchedTime: Data = Data()
+    
     @AppStorage("kadai", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
     private var storedKadaiList: Data = Data()
 
     @AppStorage("lectureInfo", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
     private var storedLectureInfo: Data = Data()
     
+    func loadKadaiFetchedTimeFromStorage() -> String {
+        var loadKadaiFetchedTime: Date
+        guard let load = try? JSONDecoder().decode(Date.self, from: storedKadaiFetchedTime) else {
+            return "未取得"
+        }
+        
+        loadKadaiFetchedTime = load
+        return dispDate(date: loadKadaiFetchedTime)
+    }
+    
     func loadLectureInfoFromStorage() -> [LectureInfo]? {
         var loadLectureInfo: [LectureInfo]
-        guard let load = try? JSONDecoder().decode([LectureInfo].self, from: storedLectureInfo) else { return nil }
+        guard let load = try? JSONDecoder().decode([LectureInfo].self, from: storedLectureInfo) else {
+            let loadLectureInfo = SakaiAPI.shared.fetchLectureInfoFromPandA()!
+            Saver.shared.saveLectureInfoToStorage(lectureInfoList: loadLectureInfo)
+            return loadLectureInfo
+        }
         
         loadLectureInfo = load
-        
         return loadLectureInfo
     }
     
     func loadKadaiListFromStorage() -> [Kadai]? {
         var loadKadaiList: [Kadai]
-        guard let load = try? JSONDecoder().decode([Kadai].self, from: storedKadaiList) else { return nil }
+        guard let load = try? JSONDecoder().decode([Kadai].self, from: storedKadaiList) else {
+            let rawKadaiList = SakaiAPI.shared.fetchAssignmentsFromPandA()!
+            let kadaiList = createKadaiList(rawKadaiList: rawKadaiList)
+            Saver.shared.saveKadaiListToStorage(kadaiList: kadaiList)
+            return kadaiList
+        }
         
+                
         loadKadaiList = load
         
         return loadKadaiList
@@ -53,12 +75,12 @@ func sortKadaiList(kadaiList: [Kadai]) -> [Kadai] {
 
 func createKadaiList(rawKadaiList: [AssignmentEntry]) -> [Kadai] {
     var kadaiList = [Kadai]()
-    var lectureInfoList = Loader.shared.loadLectureInfoFromStorage()
+    let lectureInfoList = Loader.shared.loadLectureInfoFromStorage()
     
-    if lectureInfoList == nil {
-        lectureInfoList = SakaiAPI.shared.fetchLectureInfoFromPandA()
-        Saver.shared.saveLectureInfoToStorage(lectureInfoList: lectureInfoList!)
-    }
+//    if lectureInfoList == nil {
+//        lectureInfoList = SakaiAPI.shared.fetchLectureInfoFromPandA()
+//        Saver.shared.saveLectureInfoToStorage(lectureInfoList: lectureInfoList!)
+//    }
     
     for rawEntry in rawKadaiList {
         let id = rawEntry.id
