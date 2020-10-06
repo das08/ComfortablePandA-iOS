@@ -28,17 +28,19 @@ struct ContentView: View {
             .onAppear(
                 perform: {
                     let kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
-//                    print(kadaiList[0])
+//                    print(kadaiList)
                     
                 }
             )
         List{
 
             let kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
+            
             ForEach(kadaiList){kadai in
                 
                 VStack(alignment: .leading){
                     HStack{
+//                        Text(findLectureName(lectureInfoList: lectureInfoList!, lecID: "kadai.lectureName"))
                         Text(kadai.lectureName)
                             .fontWeight(.bold)
                         Text(dispDate(date: kadai.dueDate!))

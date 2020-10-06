@@ -53,10 +53,12 @@ func sortKadaiList(kadaiList: [Kadai]) -> [Kadai] {
 
 func createKadaiList(rawKadaiList: [AssignmentEntry]) -> [Kadai] {
     var kadaiList = [Kadai]()
+    let lectureInfoList = SakaiAPI.shared.fetchLectureInfoFromPandA()
     
     for rawEntry in rawKadaiList {
         let id = rawEntry.id
-        let lectureName = rawEntry.context
+//        let lectureName = rawEntry.context
+        let lectureName = findLectureName(lectureInfoList: lectureInfoList!, lecID:                                             rawEntry.context)
         let assignmentInfo = rawEntry.title
         let dueDate = Date(timeIntervalSince1970: TimeInterval(rawEntry.dueTime.time / 1000))
         let isFinished = false
@@ -69,6 +71,7 @@ func createKadaiList(rawKadaiList: [AssignmentEntry]) -> [Kadai] {
     }
     
     kadaiList = sortKadaiList(kadaiList: kadaiList)
+
     var validKadaiList = [Kadai]()
     
     var entryCount = 0
