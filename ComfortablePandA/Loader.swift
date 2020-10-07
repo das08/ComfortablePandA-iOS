@@ -45,7 +45,7 @@ class Loader {
     func loadKadaiListFromStorage() -> [Kadai]? {
         var loadKadaiList: [Kadai]
         guard let load = try? JSONDecoder().decode([Kadai].self, from: storedKadaiList) else {
-            let rawKadaiList = SakaiAPI.shared.fetchAssignmentsFromPandA()!
+            let rawKadaiList = SakaiAPI.shared.getRawKadaiList()
             let kadaiList = createKadaiList(rawKadaiList: rawKadaiList)
             Saver.shared.saveKadaiListToStorage(kadaiList: kadaiList)
             return kadaiList

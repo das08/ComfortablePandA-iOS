@@ -17,7 +17,8 @@ struct Provider: TimelineProvider {
 //    @AppStorage("kadai", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
 //    var kadaiList: Data = Data()
 //    var kadaiList = getKadaiFromPandA()
-    let kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
+    @State private var kadaiList = Loader.shared.loadKadaiListFromStorage()!
+//    let kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
     
     
     func getSnapshot(in context: Context, completion: @escaping (KadaiEntry) -> Void) {

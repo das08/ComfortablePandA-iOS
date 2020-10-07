@@ -37,8 +37,6 @@
 		97F92F9F2529DBAC007CC58C /* SakaiAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F92F992529DB2A007CC58C /* SakaiAPI.swift */; };
 		97F92FBC252C6C24007CC58C /* Saver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F92FBB252C6C23007CC58C /* Saver.swift */; };
 		97F92FBD252C6C24007CC58C /* Saver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F92FBB252C6C23007CC58C /* Saver.swift */; };
-		97F92FC3252C76DF007CC58C /* SakaiLT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F92FC2252C76DF007CC58C /* SakaiLT.swift */; };
-		97F92FC4252C76DF007CC58C /* SakaiLT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F92FC2252C76DF007CC58C /* SakaiLT.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,7 +107,6 @@
 		97F92F8E2528E569007CC58C /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
 		97F92F992529DB2A007CC58C /* SakaiAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SakaiAPI.swift; sourceTree = "<group>"; };
 		97F92FBB252C6C23007CC58C /* Saver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Saver.swift; sourceTree = "<group>"; };
-		97F92FC2252C76DF007CC58C /* SakaiLT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SakaiLT.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,7 +204,6 @@
 				97F92F992529DB2A007CC58C /* SakaiAPI.swift */,
 				97F92F8E2528E569007CC58C /* Loader.swift */,
 				97F92FBB252C6C23007CC58C /* Saver.swift */,
-				97F92FC2252C76DF007CC58C /* SakaiLT.swift */,
 			);
 			path = ComfortablePandA;
 			sourceTree = "<group>";
@@ -399,7 +395,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97F92FC4252C76DF007CC58C /* SakaiLT.swift in Sources */,
 				9771AFAC2527451900D02198 /* HeaderView.swift in Sources */,
 				97F92F9F2529DBAC007CC58C /* SakaiAPI.swift in Sources */,
 				97F92F8925289BFF007CC58C /* DueDates.swift in Sources */,
@@ -418,7 +413,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				97F92F9A2529DB2B007CC58C /* SakaiAPI.swift in Sources */,
-				97F92FC3252C76DF007CC58C /* SakaiLT.swift in Sources */,
 				97F92F8425289635007CC58C /* DueDates.swift in Sources */,
 				97F92F8F2528E569007CC58C /* Loader.swift in Sources */,
 				9792405B2527229C008F5F98 /* Kadai.swift in Sources */,
