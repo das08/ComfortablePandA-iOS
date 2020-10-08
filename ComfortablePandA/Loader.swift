@@ -119,5 +119,26 @@ func createKadaiList(rawKadaiList: [AssignmentEntry]) -> [Kadai] {
     return validKadaiList
 }
 
+func getKeychain(account: String) -> loadResultMessage {
+    var result = loadResultMessage()
+    do {
+        let key = try Keychain.get(account: account)
+        result.success = true
+        result.data = String(data: key!, encoding: .utf8)!
+    }
+    catch Keychain.Errors.keychainNotFound{
+        result.data = "KeychainNotFound"
+        result.errorMsg = Keychain.Errors.keychainNotFound
+    }
+    catch {
+        result.data = "something went wrong"
+    }
+    return result
+}
 
 
+struct loadResultMessage {
+    var success: Bool = false
+    var data: String = ""
+    var errorMsg :Keychain.Errors = Keychain.Errors.keychainError
+}

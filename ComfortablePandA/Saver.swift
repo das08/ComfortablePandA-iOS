@@ -39,3 +39,20 @@ class Saver {
         print("saved kadaiList")
     }
 }
+
+func saveKeychain(account: String, value: String) -> saveResultMessage {
+    var result = saveResultMessage()
+    do {
+        try Keychain.set(value: value.data(using: .utf8)!, account: account)
+        result.success = true
+    }
+    catch {
+        
+    }
+    return result
+}
+
+struct saveResultMessage {
+    var success: Bool = false
+    var errorMsg :Keychain.Errors = Keychain.Errors.keychainError
+}
