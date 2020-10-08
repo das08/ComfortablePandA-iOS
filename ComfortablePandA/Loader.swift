@@ -119,6 +119,29 @@ func createKadaiList(rawKadaiList: [AssignmentEntry]) -> [Kadai] {
     return validKadaiList
 }
 
+func createKadaiList(_kadaiList: [Kadai]) -> [Kadai] {
+    let kadaiList = sortKadaiList(kadaiList: _kadaiList)
+
+    var validKadaiList = [Kadai]()
+    
+    var entryCount = 0
+    
+    for entry in kadaiList {
+        if entryCount >= 5 {
+            break
+        }
+        
+        let daysUntil = getDaysUntil(dueDate: entry.dueDate, dispDate: entry.dispDate)
+        
+        if daysUntil > 0 {
+            validKadaiList.append(entry)
+            entryCount += 1
+        }
+    }
+    
+    return validKadaiList
+}
+
 func getKeychain(account: String) -> loadResultMessage {
     var result = loadResultMessage()
     do {

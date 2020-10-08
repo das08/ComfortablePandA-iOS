@@ -17,7 +17,7 @@ struct Provider: TimelineProvider {
 //    @AppStorage("kadai", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
 //    var kadaiList: Data = Data()
 //    var kadaiList = getKadaiFromPandA()
-    @State private var kadaiList = Loader.shared.loadKadaiListFromStorage()!
+    @State private var kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!)
 //    let kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
     
     
@@ -39,8 +39,9 @@ struct Provider: TimelineProvider {
             let entryDate: Date = Calendar.current.date(byAdding: .minute, value: offset, to: currentDate)!
             var dispDateModified_kadaiList = [Kadai]()
 //            let kadaiList2 = getKadaiFromPandA()
-            let kadaiList2 = Loader.shared.loadKadaiListFromStorage()!
-            for var entry in kadaiList2 {
+//            let kadaiList2 = Loader.shared.loadKadaiListFromStorage()!
+            kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!)
+            for var entry in kadaiList {
                 entry.dispDate = entryDate
                 dispDateModified_kadaiList.append(entry)
             }

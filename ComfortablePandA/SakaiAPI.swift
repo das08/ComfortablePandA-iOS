@@ -57,9 +57,12 @@ final class SakaiAPI {
     }
     
     func login() -> () {
+        let ECS_ID = getKeychain(account: "ECS_ID").data
+        let Password = getKeychain(account: "Password").data
+//        print("\(ECS_ID), \(Password)")
         let url = URL(string: "https://cas.ecs.kyoto-u.ac.jp/cas/login?service=https%3A%2F%2Fpanda.ecs.kyoto-u.ac.jp%2Fsakai-login-tool%2Fcontainer")!  //URLを生成
         let lt = getLoginToken()!
-        let data : Data = "_eventId=submit&execution=e1s1&lt=\(lt)&password=8-8&username=8".data(using: .utf8)!
+        let data : Data = "_eventId=submit&execution=e1s1&lt=\(lt)&password=\(Password)&username=\(ECS_ID)".data(using: .utf8)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type")
@@ -95,7 +98,11 @@ final class SakaiAPI {
         
         let semaphore = DispatchSemaphore(value: 0)
         
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        let request = URLRequest(url: url,
+                                 cachePolicy: .reloadIgnoringLocalCacheData,
+                                 timeoutInterval: 10.0)
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data else {
                 print("data is nil")
                 return
