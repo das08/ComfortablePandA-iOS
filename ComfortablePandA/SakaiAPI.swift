@@ -57,6 +57,7 @@ final class SakaiAPI {
     }
     
     func login() -> () {
+        logout()
         let ECS_ID = getKeychain(account: "ECS_ID").data
         let Password = getKeychain(account: "Password").data
 //        print("\(ECS_ID), \(Password)")
@@ -69,6 +70,26 @@ final class SakaiAPI {
         request.httpBody = data
         
         
+
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data else {
+                print("data is nil")
+                return
+            }
+            
+//            print(String(data: data, encoding: .utf8))
+            semaphore.signal()
+        }
+        task.resume()
+        
+        _ = semaphore.wait(timeout: .distantFuture)
+    }
+    
+    func logout() -> () {
+        let url = URL(string: "https://panda.ecs.kyoto-u.ac.jp/portal/logout")!
+        var request = URLRequest(url: url)
 
         let semaphore = DispatchSemaphore(value: 0)
         
@@ -107,7 +128,7 @@ final class SakaiAPI {
                 print("data is nil")
                 return
             }
-//            print(String(data: data, encoding: .utf8))
+            print(String(data: data, encoding: .utf8))
             guard let kadaiList = try? JSONDecoder().decode(AssignmentCollection.self, from: data) else {
                 print("cannnot get kadai")
                 return

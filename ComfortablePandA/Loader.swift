@@ -46,7 +46,7 @@ class Loader {
         var loadKadaiList: [Kadai]
         guard let load = try? JSONDecoder().decode([Kadai].self, from: storedKadaiList) else {
             let rawKadaiList = SakaiAPI.shared.getRawKadaiList()
-            let kadaiList = createKadaiList(rawKadaiList: rawKadaiList)
+            let kadaiList = createKadaiList(rawKadaiList: rawKadaiList, count: 999)
             Saver.shared.saveKadaiListToStorage(kadaiList: kadaiList)
             return kadaiList
         }
@@ -73,7 +73,7 @@ func sortKadaiList(kadaiList: [Kadai]) -> [Kadai] {
     }
 }
 
-func createKadaiList(rawKadaiList: [AssignmentEntry]) -> [Kadai] {
+func createKadaiList(rawKadaiList: [AssignmentEntry], count: Int) -> [Kadai] {
     var kadaiList = [Kadai]()
     let lectureInfoList = Loader.shared.loadLectureInfoFromStorage()
     
@@ -104,7 +104,7 @@ func createKadaiList(rawKadaiList: [AssignmentEntry]) -> [Kadai] {
     var entryCount = 0
     
     for entry in kadaiList {
-        if entryCount >= 5 {
+        if entryCount >= count {
             break
         }
         
@@ -119,7 +119,7 @@ func createKadaiList(rawKadaiList: [AssignmentEntry]) -> [Kadai] {
     return validKadaiList
 }
 
-func createKadaiList(_kadaiList: [Kadai]) -> [Kadai] {
+func createKadaiList(_kadaiList: [Kadai], count: Int) -> [Kadai] {
     let kadaiList = sortKadaiList(kadaiList: _kadaiList)
 
     var validKadaiList = [Kadai]()
@@ -127,7 +127,7 @@ func createKadaiList(_kadaiList: [Kadai]) -> [Kadai] {
     var entryCount = 0
     
     for entry in kadaiList {
-        if entryCount >= 5 {
+        if entryCount >= count {
             break
         }
         

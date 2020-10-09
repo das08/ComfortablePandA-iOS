@@ -15,14 +15,12 @@ struct KadaiEntry: TimelineEntry {
 
 struct Provider: TimelineProvider {
 //    @AppStorage("kadai", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
-//    var kadaiList: Data = Data()
-//    var kadaiList = getKadaiFromPandA()
-    @State private var kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!)
 //    let kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
     
     
     func getSnapshot(in context: Context, completion: @escaping (KadaiEntry) -> Void) {
 //        guard let kadai = try? JSONDecoder().decode(Kadai.self, from:kadaiList) else { return }
+        let kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 5)
         let entry = KadaiEntry(date: Date(), kadai: kadaiList)
         completion(entry)
     }
@@ -40,7 +38,7 @@ struct Provider: TimelineProvider {
             var dispDateModified_kadaiList = [Kadai]()
 //            let kadaiList2 = getKadaiFromPandA()
 //            let kadaiList2 = Loader.shared.loadKadaiListFromStorage()!
-            kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!)
+            let kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 5)
             for var entry in kadaiList {
                 entry.dispDate = entryDate
                 dispDateModified_kadaiList.append(entry)

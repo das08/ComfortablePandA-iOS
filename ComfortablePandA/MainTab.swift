@@ -19,7 +19,7 @@ struct MainView: View {
     var body: some View {
         VStack{
             Button("Load and Save"){
-                kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
+                kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList(), count: 999)
                 Saver.shared.saveKadaiListToStorage(kadaiList: kadaiList)
                 Saver.shared.saveKadaiFetchedTimeToStorage()
                 
