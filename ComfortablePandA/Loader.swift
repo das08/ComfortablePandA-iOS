@@ -142,6 +142,18 @@ func createKadaiList(_kadaiList: [Kadai], count: Int) -> [Kadai] {
     return validKadaiList
 }
 
+func loadKadaiListFromStorage(storedKadaiList: Data) -> [Kadai]? {
+    var loadKadaiList: [Kadai]
+    guard let load = try? JSONDecoder().decode([Kadai].self, from: storedKadaiList) else {
+        return []
+    }
+    
+            
+    loadKadaiList = load
+    
+    return loadKadaiList
+}
+
 func getKeychain(account: String) -> loadResultMessage {
     var result = loadResultMessage()
     do {

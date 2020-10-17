@@ -5,6 +5,7 @@
 //  Created by das08 on 2020/10/08.
 //
 
+import WidgetKit
 import SwiftUI
 
 struct MainView: View {
@@ -22,6 +23,10 @@ struct MainView: View {
                 kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList(), count: 999)
                 Saver.shared.saveKadaiListToStorage(kadaiList: kadaiList)
                 Saver.shared.saveKadaiFetchedTimeToStorage()
+                
+            }
+            Button("refresh widget"){
+                WidgetCenter.shared.reloadAllTimelines()
                 
             }
             List{

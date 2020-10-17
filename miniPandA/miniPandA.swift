@@ -14,8 +14,9 @@ struct KadaiEntry: TimelineEntry {
 }
 
 struct Provider: TimelineProvider {
-//    @AppStorage("kadai", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
-//    let kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList())
+    
+    @AppStorage("kadai", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
+    var storedKadaiList: Data = Data()
     
     
     func getSnapshot(in context: Context, completion: @escaping (KadaiEntry) -> Void) {
@@ -32,13 +33,17 @@ struct Provider: TimelineProvider {
         let currentDate = Date()
 //        let nextLoadDate = Calendar.current.date(byAdding: .hour, value: 1, to: currentDate)!
         
+        let loadKadaiList = loadKadaiListFromStorage(storedKadaiList: storedKadaiList)!
+        
+        let kadaiList = createKadaiList(_kadaiList: loadKadaiList, count: 5)
+        
         // Create Timeline object for an hour
         for offset in 0 ..< 2 {
             let entryDate: Date = Calendar.current.date(byAdding: .minute, value: offset, to: currentDate)!
             var dispDateModified_kadaiList = [Kadai]()
 //            let kadaiList2 = getKadaiFromPandA()
 //            let kadaiList2 = Loader.shared.loadKadaiListFromStorage()!
-            let kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 5)
+            
             for var entry in kadaiList {
                 entry.dispDate = entryDate
                 dispDateModified_kadaiList.append(entry)
@@ -46,7 +51,6 @@ struct Provider: TimelineProvider {
             entries.append(KadaiEntry(date: entryDate, kadai:dispDateModified_kadaiList))
         }
 
-//        let timeline = Timeline(entries: entries, policy: .after(nextLoadDate))
         let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
     }
@@ -55,7 +59,6 @@ struct Provider: TimelineProvider {
         let placeholder = Kadai(id: "001", lectureName: "Lec1", assignmentInfo: "Quiz1", dueDate: Date(), isFinished: false)
         return KadaiEntry(date: Date(), kadai: [placeholder, placeholder])
     }
-    
 }
 
 
