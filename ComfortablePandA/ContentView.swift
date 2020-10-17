@@ -15,15 +15,15 @@ struct ContentView: View {
             MainView()
                 .tabItem {
                     VStack {
-                        Image(systemName: "a")
-                        Text("TabA")
+                        Image(systemName: "tray.2.fill")
+                        Text("課題一覧")
                     }
                 }.tag(1)
             SettingView()
                 .tabItem {
                     VStack {
-                        Image(systemName: "bold")
-                        Text("TabB")
+                        Image(systemName: "person.fill")
+                        Text("PandAログイン")
                     }
                 }.tag(2)
         }

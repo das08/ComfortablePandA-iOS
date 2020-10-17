@@ -1,5 +1,5 @@
 //
-//  KadaiViewDetail.swift
+//  MainTabView.swift
 //  ComfortablePandA
 //
 //  Created by das08 on 2020/10/17.
@@ -14,19 +14,24 @@ struct DateTimeView: View {
     func toggle(){isDate = !isDate}
     var body: some View {
         if isDate{
-            Text("あと\(time.days)日\(time.hour)時間\(time.minute)分")
+            Text(dispDate(date: date))
+                .font(.system(size: 14))
                 .fontWeight(.bold)
                 .foregroundColor(Color(red: 100/255 , green: 100/255, blue: 100/255))
+                .padding(.bottom,5)
                 .onTapGesture{
                     toggle()
                 }
         } else {
-            Text(dispDate(date: date))
+            Text("あと\(time.days)日\(time.hour)時間\(time.minute)分")
+                .font(.system(size: 14))
                 .fontWeight(.bold)
                 .foregroundColor(Color(red: 100/255 , green: 100/255, blue: 100/255))
+                .padding(.bottom,5)
                 .onTapGesture{
                     toggle()
                 }
+            
         }
     }
 }
@@ -39,7 +44,7 @@ struct LectureNameView: View {
     var body: some View {
         if isFull{
             Text(lectureName)
-                .font(.system(size: 15))
+                .font(.system(size: 14))
                 .fontWeight(.bold)
                 .foregroundColor(.white)
                 .padding(.horizontal, 8)
@@ -53,7 +58,7 @@ struct LectureNameView: View {
                 }
         } else {
             Text(lectureName)
-                .font(.system(size: 15))
+                .font(.system(size: 14))
                 .fontWeight(.bold)
                 .foregroundColor(.white)
                 .lineLimit(1)
