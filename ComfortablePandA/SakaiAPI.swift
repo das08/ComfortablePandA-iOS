@@ -85,7 +85,6 @@ final class SakaiAPI {
     }
 
     func login() -> () {
-        logout()
         let ECS_ID = getKeychain(account: "ECS_ID").data
         let Password = getKeychain(account: "Password").data
 //        print("\(ECS_ID), \(Password)")
@@ -137,7 +136,9 @@ final class SakaiAPI {
     
 
     func fetchAssignmentsFromPandA() -> [AssignmentEntry]? {
-        login()
+        if (!isLoggedin()){
+            login()
+        }
         
 //        let urlString = "https://das82.com/my2.json"
         let urlString = "https://panda.ecs.kyoto-u.ac.jp/direct/assignment/my.json"
