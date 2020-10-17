@@ -39,18 +39,8 @@ struct MainView: View {
                             CheckView(isFinished: kadai.isFinished)
                             HStack{
                                 
-                                Text(kadai.lectureName)
-                                    .font(.system(size: 15))
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                                    .lineLimit(1)
-                                    .padding(.horizontal, 8)
-                                    .padding(.vertical, 3)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .fill(getBadgeColor(days: daysUntil))
-                                    )
-                                DateTimeView(date: kadai.dueDate!, time: time, isDate: false)
+                                LectureNameView(lectureName:kadai.lectureName, daysUntil: daysUntil)
+                                DateTimeView(date: kadai.dueDate!, time: time)
                             }
                         }
                         
