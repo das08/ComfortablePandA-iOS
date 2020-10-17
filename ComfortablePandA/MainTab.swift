@@ -28,7 +28,6 @@ struct MainView: View {
                     Saver.shared.saveKadaiListToStorage(kadaiList: kadaiList)
                     Saver.shared.saveKadaiFetchedTimeToStorage()
                     
-                    kadaiList = Loader.shared.loadKadaiListFromStorage()!
                     kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
                     currentDate = Date()
                     
