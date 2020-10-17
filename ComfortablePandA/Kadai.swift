@@ -13,7 +13,7 @@ struct Kadai: Identifiable, Codable{
     let assignmentInfo: String
     let dueDate: Date?
     var dispDate = Date()
-    let isFinished: Bool
+    var isFinished: Bool
 }
 
 //struct AssignmentEntry: Codable, Identifiable {

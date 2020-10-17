@@ -31,15 +31,33 @@ struct MainView: View {
             }
             List{
                 ForEach(kadaiList){kadai in
+                    let time = getTimeRemain(dueDate: kadai.dueDate, dispDate: kadai.dispDate)
+                    let daysUntil = getDaysUntil(dueDate: kadai.dueDate, dispDate: kadai.dispDate)
                     
-                    VStack(alignment: .leading){
+                    VStack(alignment: .leading, spacing: 5){
                         HStack{
-                            Text(kadai.lectureName)
-                                .fontWeight(.bold)
-                            Text(dispDate(date: kadai.dueDate!))
+                            CheckView(isFinished: kadai.isFinished)
+                            HStack{
+                                
+                                Text(kadai.lectureName)
+                                    .font(.system(size: 15))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                    .lineLimit(1)
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 3)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .fill(getBadgeColor(days: daysUntil))
+                                    )
+                                DateTimeView(date: kadai.dueDate!, time: time, isDate: false)
+                            }
                         }
+                        
+
                         Text(kadai.assignmentInfo)
                             .lineLimit(1)
+                            .padding(.leading, 25)
                         
                     }
                 }
