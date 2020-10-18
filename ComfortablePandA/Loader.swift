@@ -48,6 +48,7 @@ class Loader {
             let rawKadaiList = SakaiAPI.shared.getRawKadaiList()
             let kadaiList = createKadaiList(rawKadaiList: rawKadaiList, count: 999)
             Saver.shared.saveKadaiListToStorage(kadaiList: kadaiList)
+            print("fetched from panda and loaded")
             return kadaiList
         }
         

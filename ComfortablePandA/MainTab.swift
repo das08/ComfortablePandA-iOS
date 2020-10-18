@@ -18,10 +18,17 @@ struct MainView: View {
     @State private var currentDate = Date()
     @State private var kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
     
+    let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
+    
     var body: some View {
         VStack{
             Text("取得日時: \(kadaiFetchedTime)")
             Text("更新日時: \(dispDate(date: currentDate))")
+                .onReceive(timer){ _ in
+                    kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
+                    kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
+                    currentDate = Date()
+                }
             HStack{
                 Button(action: {
                     kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList(), count: 999)
