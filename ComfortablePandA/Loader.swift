@@ -108,7 +108,8 @@ func createKadaiList(rawKadaiList: [AssignmentEntry], count: Int) -> [Kadai] {
             break
         }
         
-        let daysUntil = getDaysUntil(dueDate: entry.dueDate, dispDate: entry.dispDate)
+//        let daysUntil = getDaysUntil(dueDate: entry.dueDate, dispDate: entry.dispDate)
+        let daysUntil = getDaysUntil(dueDate: entry.dueDate, dispDate: Date())
         
         if daysUntil > 0 {
             validKadaiList.append(entry)
@@ -131,7 +132,8 @@ func createKadaiList(_kadaiList: [Kadai], count: Int) -> [Kadai] {
             break
         }
         
-        let daysUntil = getDaysUntil(dueDate: entry.dueDate, dispDate: entry.dispDate)
+//        let daysUntil = getDaysUntil(dueDate: entry.dueDate, dispDate: entry.dispDate)
+        let daysUntil = getDaysUntil(dueDate: entry.dueDate, dispDate: Date())
         
         if daysUntil > 0 {
             validKadaiList.append(entry)
