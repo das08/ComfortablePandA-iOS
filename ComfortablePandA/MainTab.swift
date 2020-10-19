@@ -54,9 +54,6 @@ struct MainView: View {
                         Text("Widgetを更新")
                     }
                 }
-//                Button("通知"){
-//                    testNotification()
-//                }
                 Button(action:{
                     setNotification(title: "📗新規課題", body: "2020/10/15 11:00 電気電子工学概論\n課題１")
                     setNotification(title: "⏰提出1日前", body: "2020/10/10 12:00 電気電子工学概論\n課題１")
