@@ -70,7 +70,7 @@ func sortKadaiList(kadaiList: [Kadai]) -> [Kadai] {
 //        if (l.assignmentInfo < r.assignmentInfo) {return (l.assignmentInfo < r.assignmentInfo)}
 //        if (l.assignmentInfo > r.assignmentInfo) {return (l.assignmentInfo > r.assignmentInfo)}
 //        return true
-        return (l.dueDate! < r.dueDate!)
+        return (l.dueDate < r.dueDate)
     }
 }
 

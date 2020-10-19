@@ -38,6 +38,7 @@ func testNotification() -> () {
 struct Notification {
     var id: String
     var title: String
+    var body: String
 }
 
 class LocalNotificationManager {
@@ -46,23 +47,26 @@ class LocalNotificationManager {
     func requestPermission() -> Void {
         UNUserNotificationCenter
             .current()
-            .requestAuthorization(options: [.alert, .badge, .alert]) { granted, error in
+            .requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
                 if granted == true && error == nil {
                     // We have permission!
                 }
         }
     }
     
-    func addNotification(title: String) -> Void {
-        notifications.append(Notification(id: UUID().uuidString, title: title))
+    func addNotification(title: String, body: String) -> Void {
+        notifications.append(Notification(id: UUID().uuidString, title: title, body: body))
     }
     
     func scheduleNotifications() -> Void {
         for notification in notifications {
             let content = UNMutableNotificationContent()
             content.title = notification.title
+            content.body = notification.body
+            content.sound = UNNotificationSound.default
             
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+            
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
             let request = UNNotificationRequest(identifier: notification.id, content: content, trigger: trigger)
             
             UNUserNotificationCenter.current().add(request) { error in
@@ -71,6 +75,11 @@ class LocalNotificationManager {
             }
         }
     }
-    
-    
+}
+
+func setNotification(title: String, body: String) -> Void {
+    let manager = LocalNotificationManager()
+    manager.requestPermission()
+    manager.addNotification(title: title, body: body)
+    manager.scheduleNotifications()
 }

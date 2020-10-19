@@ -46,16 +46,16 @@ func generateDate(y:Int, mo:Int, d:Int, h:Int, min:Int) -> Date? {
     return date.date
 }
 
-func getTimeRemain(dueDate: Date?, dispDate: Date?) -> kadaiDueDate {
-    let timeDiff = dueDate!-dispDate!
+func getTimeRemain(dueDate: Date, dispDate: Date?) -> kadaiDueDate {
+    let timeDiff = dueDate-dispDate!
     let days = floor(Double(timeDiff.second!) / (3600 * 24))
     let hours = floor((Double(timeDiff.second!) - (days * 3600 * 24)) / 3600)
     let minutes = floor((Double(timeDiff.second!) - (days * 3600 * 24 + hours * 3600)) / 60)
     return kadaiDueDate(days: Int(days), hour: Int(hours), minute: Int(minutes))
 }
 
-func getDaysUntil(dueDate: Date?, dispDate: Date?) -> Int {
-    let timeDiff = dueDate!-dispDate!
+func getDaysUntil(dueDate: Date, dispDate: Date?) -> Int {
+    let timeDiff = dueDate-dispDate!
     var daysUntil: Int
     
     switch timeDiff.second! {

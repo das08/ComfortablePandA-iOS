@@ -20,13 +20,6 @@ struct MainView: View {
     
     let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     
-    func setNotification() -> Void {
-        let manager = LocalNotificationManager()
-        manager.requestPermission()
-        manager.addNotification(title: "This is a test reminder")
-        manager.scheduleNotifications()
-    }
-    
     var body: some View {
         VStack{
             Text("取得日時: \(kadaiFetchedTime)")
@@ -61,12 +54,16 @@ struct MainView: View {
                         Text("Widgetを更新")
                     }
                 }
-                Button("通知"){
-                    testNotification()
+//                Button("通知"){
+//                    testNotification()
+//                }
+                Button(action:{
+                    setNotification(title: "📗新規課題", body: "2020/10/15 11:00 電気電子工学概論\n課題１")
+                    setNotification(title: "⏰提出1日前", body: "2020/10/10 12:00 電気電子工学概論\n課題１")
                 }
-                Button(action: { self.setNotification() }) {
-                                Text("Set Notification!")
-                            }
+                ) {
+                    Text("通知")
+                }
             }
             
             List{
@@ -81,7 +78,7 @@ struct MainView: View {
                                 
                                 LectureNameView(lectureName:kadai.lectureName, daysUntil: daysUntil)
                                 Spacer()
-                                DateTimeView(date: kadai.dueDate!, time: time)
+                                DateTimeView(date: kadai.dueDate, time: time)
                             }
                         }
                         Text(kadai.assignmentInfo)

@@ -13,6 +13,7 @@
 		974CA641253D4930007BA50F /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CA640253D492F007BA50F /* Updater.swift */; };
 		974CA64B253D5762007BA50F /* SettingTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CA64A253D5762007BA50F /* SettingTab.swift */; };
 		974CA655253DCD94007BA50F /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CA654253DCD94007BA50F /* Notification.swift */; };
+		974CA65E253DE5C8007BA50F /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CA654253DCD94007BA50F /* Notification.swift */; };
 		9771AFA7252744FB00D02198 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771AFA6252744FB00D02198 /* HeaderView.swift */; };
 		9771AFAC2527451900D02198 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771AFA6252744FB00D02198 /* HeaderView.swift */; };
 		9771AFB1252745A800D02198 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9792403025272228008F5F98 /* Assets.xcassets */; };
@@ -444,6 +445,7 @@
 				978A107E25272A92002C6C19 /* Kadai.swift in Sources */,
 				978A1071252729F4002C6C19 /* miniPandA.intentdefinition in Sources */,
 				97F92F942528E613007CC58C /* Loader.swift in Sources */,
+				974CA65E253DE5C8007BA50F /* Notification.swift in Sources */,
 				97F92FBD252C6C24007CC58C /* Saver.swift in Sources */,
 				978A106C252729EF002C6C19 /* miniPandA.swift in Sources */,
 				978A108325272A9C002C6C19 /* KadaiVIew.swift in Sources */,

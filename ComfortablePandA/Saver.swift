@@ -76,14 +76,20 @@ func mergeKadaiList(oldKL: [Kadai], newKL: [Kadai]) -> [Kadai] {
     
     for var newEntry in newKL {
         let nKid = newEntry.id
+        var oExist = false
+        
         for oldEntry in oldKL {
             let oKid = oldEntry.id
             
             if nKid == oKid {
                 newEntry.isFinished = oldEntry.isFinished
+                oExist = true
             }
         }
         mergedKadaiList.append(newEntry)
+        if (!oExist){
+            setNotification(title: "📗新規課題", body: "\(dispDate(date: newEntry.dueDate)) \(newEntry.lectureName)\n\(newEntry.assignmentInfo)")
+        }
     }
     
     return mergedKadaiList
