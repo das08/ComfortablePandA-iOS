@@ -32,7 +32,7 @@ struct MainView: View {
             HStack{
                 Button(action: {
                     kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList(), count: 999)
-                    Saver.shared.saveKadaiListToStorage(kadaiList: kadaiList)
+                    Saver.shared.mergeAndSaveKadaiListToStorage(newKadaiList: kadaiList)
                     Saver.shared.saveKadaiFetchedTimeToStorage()
                     
                     kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
