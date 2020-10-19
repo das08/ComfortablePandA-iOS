@@ -63,7 +63,7 @@ struct MainView: View {
                     
                     VStack(alignment: .leading, spacing: 10){
                         HStack{
-                            CheckView(isFinished: kadai.isFinished)
+                            CheckView(isFinished: kadai.isFinished, kadaiList: self.$kadaiList ,kid: kadai.id)
                             HStack{
                                 
                                 LectureNameView(lectureName:kadai.lectureName, daysUntil: daysUntil)

@@ -9,11 +9,15 @@ import SwiftUI
 
 struct CheckView: View {
     @State var isFinished:Bool = false
+    @Binding var kadaiList: [Kadai]
+    var kid: String = ""
+    
     func toggle(){isFinished = !isFinished}
     var body: some View {
        
         Image(systemName: isFinished ? "checkmark.square" : "square")
             .onTapGesture {
+                kadaiList = toggleIsFinished(kadaiList: kadaiList, kid: kid)
                 toggle()
             }
     }
