@@ -20,6 +20,13 @@ struct MainView: View {
     
     let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     
+    func setNotification() -> Void {
+        let manager = LocalNotificationManager()
+        manager.requestPermission()
+        manager.addNotification(title: "This is a test reminder")
+        manager.scheduleNotifications()
+    }
+    
     var body: some View {
         VStack{
             Text("取得日時: \(kadaiFetchedTime)")
@@ -54,6 +61,12 @@ struct MainView: View {
                         Text("Widgetを更新")
                     }
                 }
+                Button("通知"){
+                    testNotification()
+                }
+                Button(action: { self.setNotification() }) {
+                                Text("Set Notification!")
+                            }
             }
             
             List{
