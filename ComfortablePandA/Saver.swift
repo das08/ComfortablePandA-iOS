@@ -73,6 +73,7 @@ struct saveResultMessage {
 
 func mergeKadaiList(oldKL: [Kadai], newKL: [Kadai]) -> [Kadai] {
     var mergedKadaiList = [Kadai]()
+    var incompleteEntryCount = 0
     
     for var newEntry in newKL {
         let nKid = newEntry.id
@@ -90,7 +91,12 @@ func mergeKadaiList(oldKL: [Kadai], newKL: [Kadai]) -> [Kadai] {
         if (!oExist){
             setNotification(title: "📗新規課題", body: "\(dispDate(date: newEntry.dueDate)) \(newEntry.lectureName)\n\(newEntry.assignmentInfo)")
         }
+        if !newEntry.isFinished {
+            incompleteEntryCount += 1
+        }
     }
+    
+    BadgeCount.shared.badgeCount = incompleteEntryCount
     
     return mergedKadaiList
 }

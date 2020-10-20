@@ -34,10 +34,12 @@ struct MainView: View {
                     kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList(), count: 999)
                     Saver.shared.mergeAndSaveKadaiListToStorage(newKadaiList: kadaiList)
                     Saver.shared.saveKadaiFetchedTimeToStorage()
+                    kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
                     
                     kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
                     currentDate = Date()
                     WidgetCenter.shared.reloadAllTimelines()
+                    UIApplication.shared.applicationIconBadgeNumber = BadgeCount.shared.badgeCount
                     
                 }) {
                     HStack{
