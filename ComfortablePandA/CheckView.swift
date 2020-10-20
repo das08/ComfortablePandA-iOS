@@ -14,7 +14,6 @@ struct CheckView: View {
     
     func toggle(){isFinished = !isFinished}
     var body: some View {
-       
         Image(systemName: isFinished ? "checkmark.square" : "square")
             .onTapGesture {
                 kadaiList = toggleIsFinished(kadaiList: kadaiList, kid: kid)

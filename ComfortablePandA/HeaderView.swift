@@ -24,7 +24,6 @@ struct HeaderView: View {
                     .padding(.trailing, 16)
                 Spacer()
                 Text("更新：\(updatedTime)")
-//                    .foregroundColor(.gray)
                     .font(.system(size: 14))
                     .padding(16)
             }.frame(height: 40, alignment: .topLeading)

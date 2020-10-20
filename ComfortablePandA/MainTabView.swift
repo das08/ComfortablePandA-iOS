@@ -31,7 +31,6 @@ struct DateTimeView: View {
                 .onTapGesture{
                     toggle()
                 }
-            
         }
     }
 }

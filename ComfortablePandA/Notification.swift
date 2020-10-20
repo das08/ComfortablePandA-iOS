@@ -38,9 +38,6 @@ class LocalNotificationManager {
             content.title = notification.title
             content.body = notification.body
             content.sound = UNNotificationSound.default
-            content.badge = 1
-
-            
             
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
             let request = UNNotificationRequest(identifier: notification.id, content: content, trigger: trigger)

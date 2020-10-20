@@ -12,16 +12,9 @@ struct kadaiDueDate: Codable {
     let days: Int
     let hour: Int
     let minute: Int
-    
-//    init(days: Int, hour: Int, minute: Int) {
-//            self.days = days
-//            self.hour = hour
-//            self.minute = minute
-//        }
 }
 
 extension Date {
-
     static func -(recent: Date, previous: Date) -> (month: Int?, day: Int?, hour: Int?, minute: Int?, second: Int?) {
         let day = Calendar.current.dateComponents([.day], from: previous, to: recent).day
         let month = Calendar.current.dateComponents([.month], from: previous, to: recent).month
@@ -31,7 +24,6 @@ extension Date {
 
         return (month: month, day: day, hour: hour, minute: minute, second: second)
     }
-
 }
 
 func generateDate(y:Int, mo:Int, d:Int, h:Int, min:Int) -> Date? {
@@ -64,13 +56,11 @@ func getDaysUntil(dueDate: Date, dispDate: Date?) -> Int {
     default:
         daysUntil = -1
     }
-    
     return daysUntil
 }
 
 func dispDate(date: Date) -> String {
     let df = DateFormatter()
     df.dateFormat = "yyyy/MM/dd HH:mm"
-    
     return df.string(from: date)
 }

@@ -96,8 +96,6 @@ final class SakaiAPI {
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type")
         request.httpBody = data
         
-        
-
         let semaphore = DispatchSemaphore(value: 0)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -106,7 +104,6 @@ final class SakaiAPI {
                 return
             }
             
-//            print(String(data: data, encoding: .utf8))
             semaphore.signal()
         }
         task.resume()
@@ -126,7 +123,6 @@ final class SakaiAPI {
                 return
             }
             
-//            print(String(data: data, encoding: .utf8))
             semaphore.signal()
         }
         task.resume()
@@ -140,7 +136,6 @@ final class SakaiAPI {
             login()
         }
         
-//        let urlString = "https://das82.com/my2.json"
         let urlString = "https://panda.ecs.kyoto-u.ac.jp/direct/assignment/my.json"
         let url = URL(string: urlString)!
         
@@ -157,7 +152,7 @@ final class SakaiAPI {
                 print("data is nil")
                 return
             }
-//            print(String(data: data, encoding: .utf8))
+
             guard let kadaiList = try? JSONDecoder().decode(AssignmentCollection.self, from: data) else {
                 print("cannnot get kadai")
                 return
@@ -207,29 +202,22 @@ final class SakaiAPI {
         _ = semaphore.wait(timeout: .distantFuture)
         
         print("load lecID from panda")
-        
         return lectureEntry
     }
     
     
     func getRawKadaiList() -> [AssignmentEntry] {
         var kadaiList: [AssignmentEntry]
-
         kadaiList = SakaiAPI.shared.fetchAssignmentsFromPandA()!
-
         return kadaiList
     }
     
     func getLectureInfoList() -> [LectureInfo] {
         var lectureInfoList: [LectureInfo]
-
         lectureInfoList = SakaiAPI.shared.fetchLectureInfoFromPandA()!
         Saver.shared.saveLectureInfoToStorage(lectureInfoList: lectureInfoList)
-
         return lectureInfoList
     }
-    
-    
 }
 
 struct AssignmentCollection: Codable {

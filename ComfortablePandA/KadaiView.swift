@@ -1,5 +1,5 @@
 //
-//  KadaiVIew.swift
+//  KadaiView.swift
 //  ComfortablePandA
 //
 //  Created by das08 on 2020/10/02.
@@ -25,7 +25,6 @@ struct KadaiViewLarge: View{
         VStack(alignment:.leading ,spacing: 0){
             Spacer()
                 .frame(height:8)
-//            HeaderView(updatedTime: "2020/10/02 15:00 更新")
             HeaderView(updatedTime: kadaiFetchedTime)
             Spacer()
                 .frame(height:15)
@@ -48,7 +47,6 @@ struct KadaiViewLarge: View{
                                     .background(
                                         RoundedRectangle(cornerRadius: 10)
                                             .fill(getBadgeColor(days: daysUntil))
-                                        //                                        .frame(width: 70, height: 15)
                                     )
                                     .padding(.horizontal, 5)
                                 Text("あと\(time.days)日\(time.hour)時間\(time.minute)分")

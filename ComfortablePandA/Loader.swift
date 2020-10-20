@@ -52,17 +52,10 @@ class Loader {
             print("fetched from panda and loaded")
             return kadaiList
         }
-        
-                
         loadKadaiList = load
-        
         return loadKadaiList
     }
-    
 }
-
-
-
 
 func sortKadaiList(kadaiList: [Kadai]) -> [Kadai] {
     return kadaiList.sorted { (l: Kadai, r: Kadai) in
@@ -79,14 +72,8 @@ func createKadaiList(rawKadaiList: [AssignmentEntry], count: Int) -> [Kadai] {
     var kadaiList = [Kadai]()
     let lectureInfoList = Loader.shared.loadLectureInfoFromStorage()
     
-//    if lectureInfoList == nil {
-//        lectureInfoList = SakaiAPI.shared.fetchLectureInfoFromPandA()
-//        Saver.shared.saveLectureInfoToStorage(lectureInfoList: lectureInfoList!)
-//    }
-    
     for rawEntry in rawKadaiList {
         let id = rawEntry.id
-//        let lectureName = rawEntry.context
         let lectureName = findLectureName(lectureInfoList: lectureInfoList!, lecID:                                             rawEntry.context)
         let assignmentInfo = rawEntry.title
         let dueDate = Date(timeIntervalSince1970: TimeInterval(rawEntry.dueTime.time / 1000))
@@ -100,9 +87,7 @@ func createKadaiList(rawKadaiList: [AssignmentEntry], count: Int) -> [Kadai] {
     }
     
     kadaiList = sortKadaiList(kadaiList: kadaiList)
-
     var validKadaiList = [Kadai]()
-    
     var entryCount = 0
     
     for entry in kadaiList {
@@ -110,7 +95,6 @@ func createKadaiList(rawKadaiList: [AssignmentEntry], count: Int) -> [Kadai] {
             break
         }
         
-//        let daysUntil = getDaysUntil(dueDate: entry.dueDate, dispDate: entry.dispDate)
         let daysUntil = getDaysUntil(dueDate: entry.dueDate, dispDate: Date())
         
         if daysUntil > 0 {
@@ -118,11 +102,6 @@ func createKadaiList(rawKadaiList: [AssignmentEntry], count: Int) -> [Kadai] {
             entryCount += 1
         }
     }
-    
-//    if count == 999 {
-//        BadgeCount.shared.badgeCount = entryCount
-//    }
-    
     return validKadaiList
 }
 
@@ -139,14 +118,11 @@ func createKadaiList(_kadaiList: [Kadai], count: Int) -> [Kadai] {
             break
         }
         
-//        let daysUntil = getDaysUntil(dueDate: entry.dueDate, dispDate: entry.dispDate)
         let daysUntil = getDaysUntil(dueDate: entry.dueDate, dispDate: Date())
-        
         if daysUntil > 0 {
             validKadaiList.append(entry)
             entryCount += 1
         }
-        
         if !entry.isFinished {
             incompleteEntryCount += 1
         }
@@ -164,10 +140,7 @@ func loadKadaiListFromStorage(storedKadaiList: Data) -> [Kadai]? {
     guard let load = try? JSONDecoder().decode([Kadai].self, from: storedKadaiList) else {
         return []
     }
-    
-            
     loadKadaiList = load
-    
     return loadKadaiList
 }
 

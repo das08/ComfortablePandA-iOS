@@ -35,6 +35,5 @@ func getBadgeColor(days: Int) -> Color {
     default:
         badgeColor = ddColor.gray
     }
-    
     return badgeColor
 }

@@ -11,14 +11,13 @@ struct SettingView: View {
     @State private var showDoneAssignments: Bool = true
     
     var body: some View {
-            NavigationView {
-                List {
-                    Toggle(isOn: self.$showDoneAssignments){
-                        Text("完了済みの課題を表示する")
-                    }
+        NavigationView {
+            List {
+                Toggle(isOn: self.$showDoneAssignments){
+                    Text("完了済みの課題を表示する")
                 }
-                .navigationBarTitle("設定")
             }
+            .navigationBarTitle("設定")
         }
-    
+    }
 }
