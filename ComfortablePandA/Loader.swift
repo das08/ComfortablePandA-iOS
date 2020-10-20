@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+
 class Loader {
     static let shared = Loader()
     
@@ -118,6 +119,10 @@ func createKadaiList(rawKadaiList: [AssignmentEntry], count: Int) -> [Kadai] {
         }
     }
     
+//    if count == 999 {
+//        BadgeCount.shared.badgeCount = entryCount
+//    }
+    
     return validKadaiList
 }
 
@@ -127,6 +132,7 @@ func createKadaiList(_kadaiList: [Kadai], count: Int) -> [Kadai] {
     var validKadaiList = [Kadai]()
     
     var entryCount = 0
+    var incompleteEntryCount = 0
     
     for entry in kadaiList {
         if entryCount >= count {
@@ -140,6 +146,14 @@ func createKadaiList(_kadaiList: [Kadai], count: Int) -> [Kadai] {
             validKadaiList.append(entry)
             entryCount += 1
         }
+        
+        if !entry.isFinished {
+            incompleteEntryCount += 1
+        }
+    }
+    
+    if count == 999 {
+        BadgeCount.shared.badgeCount = incompleteEntryCount
     }
     
     return validKadaiList

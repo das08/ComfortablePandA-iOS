@@ -19,6 +19,7 @@ struct CheckView: View {
             .onTapGesture {
                 kadaiList = toggleIsFinished(kadaiList: kadaiList, kid: kid)
                 toggle()
+                UIApplication.shared.applicationIconBadgeNumber = BadgeCount.shared.badgeCount
             }
     }
 }

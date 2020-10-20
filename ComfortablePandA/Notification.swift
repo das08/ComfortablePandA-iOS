@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 import UserNotifications
 
 struct Notification {
@@ -37,6 +38,8 @@ class LocalNotificationManager {
             content.title = notification.title
             content.body = notification.body
             content.sound = UNNotificationSound.default
+            content.badge = 1
+
             
             
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)

@@ -57,6 +57,8 @@ struct MainView: View {
                 Button(action:{
                     setNotification(title: "📗新規課題", body: "2020/10/15 11:00 電気電子工学概論\n課題１")
                     setNotification(title: "⏰提出1日前", body: "2020/10/10 12:00 電気電子工学概論\n課題１")
+                    BadgeCount.shared.badgeCount = 99
+                    UIApplication.shared.applicationIconBadgeNumber = BadgeCount.shared.badgeCount
                 }
                 ) {
                     Text("通知")
@@ -90,6 +92,7 @@ struct MainView: View {
                     kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
                     kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
                     currentDate = Date()
+                    UIApplication.shared.applicationIconBadgeNumber = BadgeCount.shared.badgeCount
                 }
             }
         }
