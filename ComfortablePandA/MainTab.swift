@@ -18,7 +18,7 @@ struct MainView: View {
     @State private var currentDate = Date()
     @State private var kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
     
-    let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
+    @State var timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     
     var body: some View {
         VStack{
@@ -28,6 +28,8 @@ struct MainView: View {
                     kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
                     kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
                     currentDate = Date()
+                    print("ok!")
+//                    setNotification(title: "📗定期実行", body: "\(dispDate(date: Date()))")
                 }
             HStack{
                 Button(action: {
