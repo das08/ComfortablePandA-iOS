@@ -122,12 +122,16 @@ func createKadaiList(_kadaiList: [Kadai], count: Int) -> [Kadai] {
         
         let daysUntil = getDaysUntil(dueDate: entry.dueDate, dispDate: Date())
         if daysUntil > 0 {
-            validKadaiList.append(entry)
-            entryCount += 1
+            if (CPSetting.shared.showDoneAssignments) || (!CPSetting.shared.showDoneAssignments && !entry.isFinished) {
+                validKadaiList.append(entry)
+                entryCount += 1
+            }
+            
+            if !entry.isFinished {
+                incompleteEntryCount += 1
+            }
         }
-        if !entry.isFinished {
-            incompleteEntryCount += 1
-        }
+        
     }
     
     if count == 999 {
