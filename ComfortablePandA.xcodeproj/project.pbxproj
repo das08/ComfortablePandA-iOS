@@ -17,9 +17,13 @@
 		974CA66D253ECDC0007BA50F /* BadgeCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CA66C253ECDBF007BA50F /* BadgeCount.swift */; };
 		974CA672253ECE3F007BA50F /* BadgeCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CA66C253ECDBF007BA50F /* BadgeCount.swift */; };
 		974CA684253F3F1D007BA50F /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CA683253F3F1D007BA50F /* Background.swift */; };
-		974CA6892540683F007BA50F /* SettingTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CA64A253D5762007BA50F /* SettingTab.swift */; };
+		974CA6A6254075EA007BA50F /* Lecture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CA6A5254075EA007BA50F /* Lecture.swift */; };
+		974CA6AF2540762A007BA50F /* Lecture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CA6A5254075EA007BA50F /* Lecture.swift */; };
+		974CA6B425407652007BA50F /* KadaiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9792405F252724D8008F5F98 /* KadaiView.swift */; };
+		974CA6B925407665007BA50F /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771AFA6252744FB00D02198 /* HeaderView.swift */; };
+		974CA6BF25407695007BA50F /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CA6BE25407695007BA50F /* Setting.swift */; };
+		974CA6C4254076BC007BA50F /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CA6BE25407695007BA50F /* Setting.swift */; };
 		9771AFA7252744FB00D02198 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771AFA6252744FB00D02198 /* HeaderView.swift */; };
-		9771AFAC2527451900D02198 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771AFA6252744FB00D02198 /* HeaderView.swift */; };
 		9771AFB1252745A800D02198 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9792403025272228008F5F98 /* Assets.xcassets */; };
 		9771AFB725285D9700D02198 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771AFB625285D9700D02198 /* Colors.swift */; };
 		978A1067252729EF002C6C19 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978A1066252729EF002C6C19 /* WidgetKit.framework */; };
@@ -30,7 +34,6 @@
 		978A1072252729F4002C6C19 /* miniPandA.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 978A106D252729EF002C6C19 /* miniPandA.intentdefinition */; };
 		978A1075252729F4002C6C19 /* miniPandAExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 978A1064252729EF002C6C19 /* miniPandAExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		978A107E25272A92002C6C19 /* Kadai.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9792405A2527229C008F5F98 /* Kadai.swift */; };
-		978A108325272A9C002C6C19 /* KadaiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9792405F252724D8008F5F98 /* KadaiView.swift */; };
 		978F1701252E01B20037A22F /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978F1700252E01B20037A22F /* KeyChain.swift */; };
 		978F1707252F21690037A22F /* MainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978F1706252F21690037A22F /* MainTab.swift */; };
 		978F170D252F21800037A22F /* LoginTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978F170C252F21800037A22F /* LoginTab.swift */; };
@@ -100,6 +103,8 @@
 		974CA654253DCD94007BA50F /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		974CA66C253ECDBF007BA50F /* BadgeCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeCount.swift; sourceTree = "<group>"; };
 		974CA683253F3F1D007BA50F /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
+		974CA6A5254075EA007BA50F /* Lecture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lecture.swift; sourceTree = "<group>"; };
+		974CA6BE25407695007BA50F /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		9771AFA6252744FB00D02198 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		9771AFB625285D9700D02198 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		978A105C2527282B002C6C19 /* ComfortablePandA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ComfortablePandA.entitlements; sourceTree = "<group>"; };
@@ -176,6 +181,39 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		974CA68E25407506007BA50F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9771AFA6252744FB00D02198 /* HeaderView.swift */,
+				974CA5E5253A94FE007BA50F /* CheckView.swift */,
+				9792405F252724D8008F5F98 /* KadaiView.swift */,
+				974CA5EB253AA1A2007BA50F /* MainTabView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		974CA69F2540757C007BA50F /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				978F170C252F21800037A22F /* LoginTab.swift */,
+				974CA64A253D5762007BA50F /* SettingTab.swift */,
+				978F1706252F21690037A22F /* MainTab.swift */,
+			);
+			path = Tabs;
+			sourceTree = "<group>";
+		};
+		974CA6A425407592007BA50F /* models */ = {
+			isa = PBXGroup;
+			children = (
+				9771AFB625285D9700D02198 /* Colors.swift */,
+				9792405A2527229C008F5F98 /* Kadai.swift */,
+				974CA6A5254075EA007BA50F /* Lecture.swift */,
+				974CA6BE25407695007BA50F /* Setting.swift */,
+				97F92F8325289635007CC58C /* DueDates.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
 		978A1065252729EF002C6C19 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -224,27 +262,20 @@
 		9792402B25272222008F5F98 /* ComfortablePandA */ = {
 			isa = PBXGroup;
 			children = (
-				9792405A2527229C008F5F98 /* Kadai.swift */,
+				974CA6A425407592007BA50F /* models */,
+				974CA69F2540757C007BA50F /* Tabs */,
+				974CA68E25407506007BA50F /* Views */,
 				978A105C2527282B002C6C19 /* ComfortablePandA.entitlements */,
 				9792402C25272222008F5F98 /* ComfortablePandAApp.swift */,
 				9792402E25272222008F5F98 /* ContentView.swift */,
-				9792405F252724D8008F5F98 /* KadaiView.swift */,
-				97F92F8325289635007CC58C /* DueDates.swift */,
 				9792403025272228008F5F98 /* Assets.xcassets */,
 				9792403525272228008F5F98 /* Info.plist */,
 				9792403225272228008F5F98 /* Preview Content */,
-				9771AFA6252744FB00D02198 /* HeaderView.swift */,
-				9771AFB625285D9700D02198 /* Colors.swift */,
 				97F92F992529DB2A007CC58C /* SakaiAPI.swift */,
 				97F92F8E2528E569007CC58C /* Loader.swift */,
 				97F92FBB252C6C23007CC58C /* Saver.swift */,
 				978F1700252E01B20037A22F /* KeyChain.swift */,
-				974CA5EB253AA1A2007BA50F /* MainTabView.swift */,
-				978F1706252F21690037A22F /* MainTab.swift */,
-				978F170C252F21800037A22F /* LoginTab.swift */,
-				974CA5E5253A94FE007BA50F /* CheckView.swift */,
 				974CA640253D492F007BA50F /* Updater.swift */,
-				974CA64A253D5762007BA50F /* SettingTab.swift */,
 				974CA654253DCD94007BA50F /* Notification.swift */,
 				974CA66C253ECDBF007BA50F /* BadgeCount.swift */,
 				974CA683253F3F1D007BA50F /* Background.swift */,
@@ -445,20 +476,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				974CA6AF2540762A007BA50F /* Lecture.swift in Sources */,
 				978F1712252F2C3E0037A22F /* KeyChain.swift in Sources */,
-				9771AFAC2527451900D02198 /* HeaderView.swift in Sources */,
 				97F92F9F2529DBAC007CC58C /* SakaiAPI.swift in Sources */,
 				974CA672253ECE3F007BA50F /* BadgeCount.swift in Sources */,
 				97F92F8925289BFF007CC58C /* DueDates.swift in Sources */,
+				974CA6C4254076BC007BA50F /* Setting.swift in Sources */,
 				97F92F7E2528621E007CC58C /* Colors.swift in Sources */,
 				978A107E25272A92002C6C19 /* Kadai.swift in Sources */,
+				974CA6B425407652007BA50F /* KadaiView.swift in Sources */,
 				978A1071252729F4002C6C19 /* miniPandA.intentdefinition in Sources */,
 				97F92F942528E613007CC58C /* Loader.swift in Sources */,
 				974CA667253E8ABC007BA50F /* Notification.swift in Sources */,
-				974CA6892540683F007BA50F /* SettingTab.swift in Sources */,
 				97F92FBD252C6C24007CC58C /* Saver.swift in Sources */,
 				978A106C252729EF002C6C19 /* miniPandA.swift in Sources */,
-				978A108325272A9C002C6C19 /* KadaiView.swift in Sources */,
+				974CA6B925407665007BA50F /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,8 +504,10 @@
 				974CA64B253D5762007BA50F /* SettingTab.swift in Sources */,
 				97F92F8F2528E569007CC58C /* Loader.swift in Sources */,
 				9792405B2527229C008F5F98 /* Kadai.swift in Sources */,
+				974CA6BF25407695007BA50F /* Setting.swift in Sources */,
 				97F92FBC252C6C24007CC58C /* Saver.swift in Sources */,
 				9771AFA7252744FB00D02198 /* HeaderView.swift in Sources */,
+				974CA6A6254075EA007BA50F /* Lecture.swift in Sources */,
 				974CA684253F3F1D007BA50F /* Background.swift in Sources */,
 				9792402F25272222008F5F98 /* ContentView.swift in Sources */,
 				974CA5EC253AA1A2007BA50F /* MainTabView.swift in Sources */,

@@ -61,7 +61,7 @@ final class SakaiAPI {
         
         var isLoggedin = false
 
-        var semaphore = DispatchSemaphore(value: 0)
+        let semaphore = DispatchSemaphore(value: 0)
 
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             do {
@@ -236,14 +236,6 @@ struct AssignmentEntryDueTime: Codable {
     let time: Int
 }
 
-struct LectureCollection: Codable {
-    let site_collection: [LectureInfo]
-}
-
-struct LectureInfo: Codable, Identifiable, Equatable {
-    let id: String
-    let title: String
-}
 
 func findLectureName(lectureInfoList: [LectureInfo], lecID: String) -> String {
     let index = lectureInfoList.firstIndex { $0.id == lecID }

@@ -25,9 +25,3 @@ struct SettingView: View {
     }
 }
 
-class CPSetting {
-    static let shared = CPSetting()
-    
-    @AppStorage("showDoneAssignments", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
-    var showDoneAssignments: Bool = true
-}
