@@ -209,9 +209,24 @@
 				9792405A2527229C008F5F98 /* Kadai.swift */,
 				974CA6A5254075EA007BA50F /* Lecture.swift */,
 				974CA6BE25407695007BA50F /* Setting.swift */,
+				974CA66C253ECDBF007BA50F /* BadgeCount.swift */,
 				97F92F8325289635007CC58C /* DueDates.swift */,
 			);
 			path = models;
+			sourceTree = "<group>";
+		};
+		974CA6CD254078D1007BA50F /* modules */ = {
+			isa = PBXGroup;
+			children = (
+				97F92F8E2528E569007CC58C /* Loader.swift */,
+				97F92FBB252C6C23007CC58C /* Saver.swift */,
+				974CA640253D492F007BA50F /* Updater.swift */,
+				978F1700252E01B20037A22F /* KeyChain.swift */,
+				974CA683253F3F1D007BA50F /* Background.swift */,
+				97F92F992529DB2A007CC58C /* SakaiAPI.swift */,
+				974CA654253DCD94007BA50F /* Notification.swift */,
+			);
+			path = modules;
 			sourceTree = "<group>";
 		};
 		978A1065252729EF002C6C19 /* Frameworks */ = {
@@ -262,6 +277,7 @@
 		9792402B25272222008F5F98 /* ComfortablePandA */ = {
 			isa = PBXGroup;
 			children = (
+				974CA6CD254078D1007BA50F /* modules */,
 				974CA6A425407592007BA50F /* models */,
 				974CA69F2540757C007BA50F /* Tabs */,
 				974CA68E25407506007BA50F /* Views */,
@@ -271,14 +287,6 @@
 				9792403025272228008F5F98 /* Assets.xcassets */,
 				9792403525272228008F5F98 /* Info.plist */,
 				9792403225272228008F5F98 /* Preview Content */,
-				97F92F992529DB2A007CC58C /* SakaiAPI.swift */,
-				97F92F8E2528E569007CC58C /* Loader.swift */,
-				97F92FBB252C6C23007CC58C /* Saver.swift */,
-				978F1700252E01B20037A22F /* KeyChain.swift */,
-				974CA640253D492F007BA50F /* Updater.swift */,
-				974CA654253DCD94007BA50F /* Notification.swift */,
-				974CA66C253ECDBF007BA50F /* BadgeCount.swift */,
-				974CA683253F3F1D007BA50F /* Background.swift */,
 			);
 			path = ComfortablePandA;
 			sourceTree = "<group>";
