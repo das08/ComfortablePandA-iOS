@@ -229,6 +229,7 @@ struct AssignmentEntry: Codable, Identifiable {
     let id: String
     let title: String
     let dueTime: AssignmentEntryDueTime
+    let instructions: String
 }
 
 struct AssignmentEntryDueTime: Codable {

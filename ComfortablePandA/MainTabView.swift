@@ -73,3 +73,36 @@ struct LectureNameView: View {
         }
     }
 }
+
+struct AssignmentInfoView: View {
+    var assignmentInfo: String
+    var description = ""
+    @State var isDetailed:Bool = false
+    
+    func toggle(){isDetailed = !isDetailed}
+    var body: some View {
+        if isDetailed {
+            VStack(alignment: .leading) {
+                Text(assignmentInfo)
+                    .fontWeight(.bold)
+//                    .lineLimit(1)
+                    .padding(.leading, 25)
+                    .onTapGesture{
+                        toggle()
+                    }
+                Text(description)
+                    .padding(.leading, 25)
+                    .onTapGesture{
+                        toggle()
+                    }
+            }
+        } else {
+            Text(assignmentInfo)
+                .lineLimit(1)
+                .padding(.leading, 25)
+                .onTapGesture{
+                    toggle()
+                }
+        }
+    }
+}

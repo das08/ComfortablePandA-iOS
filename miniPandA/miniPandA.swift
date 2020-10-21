@@ -56,7 +56,7 @@ struct Provider: TimelineProvider {
     }
     
     func placeholder(in context: Context) -> KadaiEntry {
-        let placeholder = Kadai(id: "001", lectureName: "Lec1", assignmentInfo: "Quiz1", dueDate: Date(), isFinished: false)
+        let placeholder = Kadai(id: "001", lectureName: "Lec1", assignmentInfo: "Quiz1", dueDate: Date(), description: "description", isFinished: false)
         return KadaiEntry(date: Date(), kadai: [placeholder, placeholder])
     }
 }

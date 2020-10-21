@@ -84,9 +84,7 @@ struct MainView: View {
                                 DateTimeView(date: kadai.dueDate, time: time)
                             }
                         }
-                        Text(kadai.assignmentInfo)
-                            .lineLimit(1)
-                            .padding(.leading, 25)
+                        AssignmentInfoView(assignmentInfo: kadai.assignmentInfo, description: kadai.description)
                     }
                 }
             }

@@ -13,16 +13,7 @@ struct Kadai: Identifiable, Codable{
     let assignmentInfo: String
     let dueDate: Date
     var dispDate = Date()
+    var description: String
     var isFinished: Bool
 }
 
-//struct AssignmentEntry: Codable, Identifiable {
-//    let context: String
-//    let id: String
-//    let title: String
-//    let dueTime: AssignmentEntryDueTime
-//}
-//
-//struct AssignmentEntryDueTime: Codable {
-//    let time: Int
-//}
