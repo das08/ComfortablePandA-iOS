@@ -32,10 +32,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.das08.ComfortablePandA.fetch", using: nil) { task in
-//            e -l objc -- (void)[[BGTaskScheduler sharedScheduler] _simulateLaunchForTaskWithIdentifier:@"com.das08.ComfortablePandA.fetch"]
-            BGTask.shared.handleAppRefresh(task: task as! BGAppRefreshTask)
-        }
+//        BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.das08.ComfortablePandA.fetch", using: nil) { task in
+////            e -l objc -- (void)[[BGTaskScheduler sharedScheduler] _simulateLaunchForTaskWithIdentifier:@"com.das08.ComfortablePandA.fetch"]
+//            BGTask.shared.handleAppRefresh(task: task as! BGAppRefreshTask)
+//        }
         
         AppEventHandler.shared.startObserving()
         
@@ -91,8 +91,8 @@ class AppEventHandler: NSObject {
         print("willEnterForeground")
     }
     @objc func didEnterBackground() {
-        BGTask.shared.scheduleAppRefresh()
-        print("bg")
+//        BGTask.shared.scheduleAppRefresh()
+        print("didEnterBackground")
 //        UIApplication.shared.applicationIconBadgeNumber = 99
     }
     @objc func willTerminate() {

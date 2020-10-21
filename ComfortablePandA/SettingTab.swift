@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct SettingView: View {
     
@@ -15,6 +16,8 @@ struct SettingView: View {
             List {
                 Toggle(isOn: CPSetting.shared.$showDoneAssignments){
                     Text("完了済みの課題を表示する")
+                }.onTapGesture {
+                    WidgetCenter.shared.reloadAllTimelines()
                 }
             }
             .navigationBarTitle("設定")

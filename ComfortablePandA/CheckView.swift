@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct CheckView: View {
     @State var isFinished:Bool = false
@@ -19,6 +20,7 @@ struct CheckView: View {
                 kadaiList = toggleIsFinished(kadaiList: kadaiList, kid: kid)
                 toggle()
                 UIApplication.shared.applicationIconBadgeNumber = BadgeCount.shared.badgeCount
+                WidgetCenter.shared.reloadAllTimelines()
             }
     }
 }
