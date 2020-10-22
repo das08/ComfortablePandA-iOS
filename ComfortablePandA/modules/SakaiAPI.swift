@@ -72,7 +72,7 @@ final class SakaiAPI {
                 let str = String(data: data, encoding: .utf8)!
                 let result = regex.matches(in: str, options: [], range: NSRange(0..<str.count))
                 isLoggedin = result.count > 0
-            } catch let p {
+            } catch _ {
                 result.success = false
                 result.error = Login.Network
             }
@@ -104,10 +104,9 @@ final class SakaiAPI {
             Password = getKeychain(account: "Password").data
         }else{
             result.success = false
-            result.errorMsg = "ECS_IDまたはパスワードが保存されていません。"
+            result.errorMsg = ErrorMsg.FailedToGetKeychain.rawValue
             return result
         }
-        
         
 //        print("\(ECS_ID), \(Password)")
         let url = URL(string: "https://cas.ecs.kyoto-u.ac.jp/cas/login?service=https%3A%2F%2Fpanda.ecs.kyoto-u.ac.jp%2Fsakai-login-tool%2Fcontainer")!  //URLを生成
@@ -122,17 +121,11 @@ final class SakaiAPI {
         var isLoggedin = false
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data else {
-                print("data is nil")
-                return
-            }
+            guard let data = data else { return }
             let regex = try! NSRegularExpression(pattern: "\"loggedIn\": true");
             let str = String(data: data, encoding: .utf8)!
-
             let result = regex.matches(in: str, options: [], range: NSRange(0..<str.count))
-            
             isLoggedin = result.count > 0
-            
             semaphore.signal()
         }
         task.resume()
@@ -147,10 +140,9 @@ final class SakaiAPI {
     
     func logout() -> () {
         let url = URL(string: "https://panda.ecs.kyoto-u.ac.jp/portal/logout")!
-        var request = URLRequest(url: url)
+        let request = URLRequest(url: url)
 
         let semaphore = DispatchSemaphore(value: 0)
-        
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data else { return }
             semaphore.signal()
@@ -168,7 +160,7 @@ final class SakaiAPI {
             
             if loginCheck.error == Login.Network {
                 result.success = false
-                result.errorMsg = "Panda is down"
+                result.errorMsg = ErrorMsg.FailedToGetResponse.rawValue
                 return result
             }
             
@@ -191,27 +183,21 @@ final class SakaiAPI {
                                  timeoutInterval: 10.0)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data else {
-                print("data is nil")
-                return
-            }
-
+            guard let data = data else { return }
             guard let kadaiList = try? JSONDecoder().decode(AssignmentCollection.self, from: data) else {
-                print("cannnot get kadai")
+                result.success = false
+                result.errorMsg = ErrorMsg.FailedToGetKadaiList.rawValue
                 return
             }
-            
             assignmentEntry = kadaiList.assignment_collection
             semaphore.signal()
         }
         task.resume()
-        
         _ = semaphore.wait(timeout: .distantFuture)
         
         print("Logged in: \(isLoggedin())")
         
         Saver.shared.saveKadaiFetchedTimeToStorage()
-        
         result.rawKadaiList = assignmentEntry
         
         return result
@@ -227,10 +213,7 @@ final class SakaiAPI {
         let semaphore = DispatchSemaphore(value: 0)
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else {
-                print("data is nil")
-                return
-            }
+            guard let data = data else { return }
             
             guard let lectureList = try? JSONDecoder().decode(LectureCollection.self, from: data) else {
                 print("cannnot get kadai")
