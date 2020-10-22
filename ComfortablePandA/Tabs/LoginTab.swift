@@ -31,7 +31,6 @@ struct LoginView: View {
                 
             }
             .frame(height: 200)
-            
             Button(action: {
                 UIApplication.shared.endEditing()
                 if ECS_ID == "" || Password == "" {
@@ -42,6 +41,7 @@ struct LoginView: View {
                     
                     _ = saveKeychain(account: "ECS_ID", value: ECS_ID)
                     _ = saveKeychain(account: "Password", value: Password)
+                    SakaiAPI.shared.logout()
                     let loginRes = SakaiAPI.shared.login()
                     
                     if loginRes.success {

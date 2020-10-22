@@ -16,34 +16,53 @@ enum Login: Error {
     case Default
     case Network
     case LTNotFound
+    case EXENotFound
 }
 
+
+struct Token {
+    var LT: String?
+    var EXE: String?
+}
 
 final class SakaiAPI {
     
     static let shared = SakaiAPI()
     
-    func getLoginToken() -> String? {
+    func getLoginToken() -> Token {
         let urlString = "https://cas.ecs.kyoto-u.ac.jp/cas/login?service=https%3A%2F%2Fpanda.ecs.kyoto-u.ac.jp%2Fsakai-login-tool%2Fcontainer"
         let url = URL(string: urlString)!
         var request = URLRequest(url: url)
         request.timeoutInterval = 6
         var loginToken: String?
+        var execution: String?
+        var tokens = Token()
+        
         let semaphore = DispatchSemaphore(value: 0)
 
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             do {
                 guard let data = data else { throw Login.Network }
-                let regex = try! NSRegularExpression(pattern: "<input type=\"hidden\" name=\"lt\" value=\"(.+)\" \\/>");
+                let regexLT = try! NSRegularExpression(pattern: "<input type=\"hidden\" name=\"lt\" value=\"(.+)\" \\/>");
+                let regexEXE = try! NSRegularExpression(pattern: "<input type=\"hidden\" name=\"execution\" value=\"(.+)\" \\/>");
                 let str = String(data: data, encoding: .utf8)!
+                print("LT(): \(String(data: data, encoding: .utf8)!)")
 
-                guard let result = regex.firstMatch(in: str, options: [], range: NSRange(0..<str.count)) else {
+                guard let resultLT = regexLT.firstMatch(in: str, options: [], range: NSRange(0..<str.count)) else {
                     throw Login.LTNotFound
                 }
-                let start = result.range(at: 1).location;
-                let end = start + result.range(at: 1).length;
+                guard let resultEXE = regexEXE.firstMatch(in: str, options: [], range: NSRange(0..<str.count)) else {
+                    throw Login.EXENotFound
+                }
+                
+                let start = resultLT.range(at: 1).location;
+                let end = start + resultLT.range(at: 1).length;
+                let start2 = resultEXE.range(at: 1).location;
+                let end2 = start2 + resultEXE.range(at: 1).length;
                 print(String(str[str.index(str.startIndex, offsetBy: start)..<str.index(str.startIndex, offsetBy: end)]));
                 loginToken = String(str[str.index(str.startIndex, offsetBy: start)..<str.index(str.startIndex, offsetBy: end)])
+                execution = String(str[str.index(str.startIndex, offsetBy: start2)..<str.index(str.startIndex, offsetBy: end2)])
+                tokens = Token(LT: loginToken, EXE: execution)
             } catch _ {
                 
             }
@@ -53,7 +72,7 @@ final class SakaiAPI {
 
         _ = semaphore.wait(timeout: .distantFuture)
 
-        return loginToken
+        return tokens
     }
     
     func isLoggedin() -> LoginStatus {
@@ -89,11 +108,11 @@ final class SakaiAPI {
     func login() -> LoginStatus {
         var result = LoginStatus()
         
-        let lt = getLoginToken()
+        let tokens = getLoginToken()
         var ECS_ID = ""
         var Password = ""
         
-        if lt == nil {
+        if tokens.LT == nil || tokens.EXE == nil {
             result.success = false
             result.errorMsg = ErrorMsg.FailedToGetLT.rawValue
             return result
@@ -110,7 +129,7 @@ final class SakaiAPI {
         
         let url = URL(string: "https://cas.ecs.kyoto-u.ac.jp/cas/login?service=https%3A%2F%2Fpanda.ecs.kyoto-u.ac.jp%2Fsakai-login-tool%2Fcontainer")!  //URLを生成
         
-        let data : Data = "_eventId=submit&execution=e1s1&lt=\(lt!)&password=\(Password)&username=\(ECS_ID)".data(using: .utf8)!
+        let data : Data = "_eventId=submit&execution=\(tokens.EXE!)&lt=\(tokens.LT!)&password=\(Password)&username=\(ECS_ID)".data(using: .utf8)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type")
@@ -126,6 +145,8 @@ final class SakaiAPI {
                 let str = String(data: data, encoding: .utf8)!
                 let result = regex.matches(in: str, options: [], range: NSRange(0..<str.count))
                 isLoggedin = result.count > 0
+                print("login(): \(isLoggedin)")
+                print("login(): \(str)")
             } catch _ {
                 result.success = false
                 result.error = Login.Network
@@ -136,7 +157,7 @@ final class SakaiAPI {
         task.resume()
         
         _ = semaphore.wait(timeout: .distantFuture)
-        
+        print("dats(): \(String(data: data, encoding: .utf8)!)")
         if !isLoggedin { result.errorMsg = ErrorMsg.FailedToLogin.rawValue }
         result.success = isLoggedin
         
