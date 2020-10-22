@@ -56,8 +56,8 @@ final class SakaiAPI {
         return loginToken
     }
     
-    func isLoggedin() -> loginStatus {
-        var result = loginStatus()
+    func isLoggedin() -> LoginStatus {
+        var result = LoginStatus()
         
         let url = URL(string: "https://panda.ecs.kyoto-u.ac.jp/portal/")!
         var request = URLRequest(url: url)
@@ -86,8 +86,8 @@ final class SakaiAPI {
         return result
     }
 
-    func login() -> loginStatus {
-        var result = loginStatus()
+    func login() -> LoginStatus {
+        var result = LoginStatus()
         
         let lt = getLoginToken()
         var ECS_ID = ""
@@ -108,7 +108,6 @@ final class SakaiAPI {
             return result
         }
         
-//        print("\(ECS_ID), \(Password)")
         let url = URL(string: "https://cas.ecs.kyoto-u.ac.jp/cas/login?service=https%3A%2F%2Fpanda.ecs.kyoto-u.ac.jp%2Fsakai-login-tool%2Fcontainer")!  //URLを生成
         
         let data : Data = "_eventId=submit&execution=e1s1&lt=\(lt!)&password=\(Password)&username=\(ECS_ID)".data(using: .utf8)!
@@ -159,8 +158,8 @@ final class SakaiAPI {
     }
     
 
-    func fetchAssignmentsFromPandA() -> kadaiFetchStatus {
-        var result = kadaiFetchStatus()
+    func fetchAssignmentsFromPandA() -> KadaiFetchStatus {
+        var result = KadaiFetchStatus()
         let loginCheck = isLoggedin()
         if (!loginCheck.success){
             
@@ -271,18 +270,6 @@ struct AssignmentEntry: Codable, Identifiable {
 
 struct AssignmentEntryDueTime: Codable {
     let time: Int
-}
-
-struct loginStatus {
-    var success = true
-    var errorMsg = ""
-    var error: Login = Login.Default
-}
-
-struct kadaiFetchStatus {
-    var success = true
-    var errorMsg = ""
-    var rawKadaiList: [AssignmentEntry]?
 }
 
 

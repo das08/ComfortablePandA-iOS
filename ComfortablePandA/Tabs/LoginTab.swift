@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct LoginView: View {
     @State var showingAlert = false
     @State var alertText = ""
@@ -34,6 +33,7 @@ struct LoginView: View {
                 .frame(height: 200)
                 
                 Button(action: {
+                    UIApplication.shared.endEditing()
                     if ECS_ID == "" || Password == "" {
                         self.showingAlert = true
                         self.alertText = ErrorMsg.EmptyIDAndPass.rawValue
@@ -54,7 +54,6 @@ struct LoginView: View {
                             }
                         }
                     }
-                    UIApplication.shared.endEditing()
                 },
                 label: {
                     Text("ログイン")
@@ -75,6 +74,7 @@ struct LoginView: View {
         }
     }
 }
+
 extension UIApplication {
     func endEditing() {
         sendAction(
@@ -90,6 +90,7 @@ extension View {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
+
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()

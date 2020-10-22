@@ -77,7 +77,6 @@ func createKadaiList(rawKadaiList: [AssignmentEntry], count: Int) -> [Kadai] {
         let lectureName = findLectureName(lectureInfoList: lectureInfoList!, lecID:                                             rawEntry.context)
         let assignmentInfo = rawEntry.title
         let dueDate = Date(timeIntervalSince1970: TimeInterval(rawEntry.dueTime.time / 1000))
-//        let description = rawEntry.instructions
         let description = rawEntry.instructions.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
         let isFinished = false
         
