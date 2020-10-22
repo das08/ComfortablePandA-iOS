@@ -31,7 +31,7 @@ final class SakaiAPI {
         var loginToken: String?
         let semaphore = DispatchSemaphore(value: 0)
 
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in  
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             do {
                 guard let data = data else { throw Login.Network }
                 let regex = try! NSRegularExpression(pattern: "<input type=\"hidden\" name=\"lt\" value=\"(.+)\" \\/>");
@@ -44,8 +44,8 @@ final class SakaiAPI {
                 let end = start + result.range(at: 1).length;
                 print(String(str[str.index(str.startIndex, offsetBy: start)..<str.index(str.startIndex, offsetBy: end)]));
                 loginToken = String(str[str.index(str.startIndex, offsetBy: start)..<str.index(str.startIndex, offsetBy: end)])
-            } catch let error {
-                print(error)
+            } catch _ {
+                
             }
             semaphore.signal()
         }
@@ -63,19 +63,16 @@ final class SakaiAPI {
         var request = URLRequest(url: url)
         request.timeoutInterval = 6
         var isLoggedin = false
+        
         let semaphore = DispatchSemaphore(value: 0)
-
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             do {
                 guard let data = data else { throw Login.Network }
                 let regex = try! NSRegularExpression(pattern: "\"loggedIn\": true");
                 let str = String(data: data, encoding: .utf8)!
-
                 let result = regex.matches(in: str, options: [], range: NSRange(0..<str.count))
-                
                 isLoggedin = result.count > 0
             } catch let p {
-                print("mes:\(p)")
                 result.success = false
                 result.error = Login.Network
             }
@@ -92,16 +89,15 @@ final class SakaiAPI {
     func login() -> loginStatus {
         var result = loginStatus()
         
-        let _lt = getLoginToken()
+        let lt = getLoginToken()
         var ECS_ID = ""
         var Password = ""
         
-        if _lt == nil {
+        if lt == nil {
             result.success = false
             result.errorMsg = ErrorMsg.FailedToGetLT.rawValue
             return result
         }
-        let lt = _lt!
         
         if getKeychain(account: "ECS_ID").success && getKeychain(account: "Password").success {
             ECS_ID = getKeychain(account: "ECS_ID").data
@@ -116,7 +112,7 @@ final class SakaiAPI {
 //        print("\(ECS_ID), \(Password)")
         let url = URL(string: "https://cas.ecs.kyoto-u.ac.jp/cas/login?service=https%3A%2F%2Fpanda.ecs.kyoto-u.ac.jp%2Fsakai-login-tool%2Fcontainer")!  //URLを生成
         
-        let data : Data = "_eventId=submit&execution=e1s1&lt=\(lt)&password=\(Password)&username=\(ECS_ID)".data(using: .utf8)!
+        let data : Data = "_eventId=submit&execution=e1s1&lt=\(lt!)&password=\(Password)&username=\(ECS_ID)".data(using: .utf8)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type")
