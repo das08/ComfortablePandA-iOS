@@ -46,7 +46,6 @@ final class SakaiAPI {
                 let regexLT = try! NSRegularExpression(pattern: "<input type=\"hidden\" name=\"lt\" value=\"(.+)\" \\/>");
                 let regexEXE = try! NSRegularExpression(pattern: "<input type=\"hidden\" name=\"execution\" value=\"(.+)\" \\/>");
                 let str = String(data: data, encoding: .utf8)!
-                print("LT(): \(String(data: data, encoding: .utf8)!)")
 
                 guard let resultLT = regexLT.firstMatch(in: str, options: [], range: NSRange(0..<str.count)) else {
                     throw Login.LTNotFound
@@ -59,7 +58,7 @@ final class SakaiAPI {
                 let end = start + resultLT.range(at: 1).length;
                 let start2 = resultEXE.range(at: 1).location;
                 let end2 = start2 + resultEXE.range(at: 1).length;
-                print(String(str[str.index(str.startIndex, offsetBy: start)..<str.index(str.startIndex, offsetBy: end)]));
+                
                 loginToken = String(str[str.index(str.startIndex, offsetBy: start)..<str.index(str.startIndex, offsetBy: end)])
                 execution = String(str[str.index(str.startIndex, offsetBy: start2)..<str.index(str.startIndex, offsetBy: end2)])
                 tokens = Token(LT: loginToken, EXE: execution)
@@ -145,8 +144,6 @@ final class SakaiAPI {
                 let str = String(data: data, encoding: .utf8)!
                 let result = regex.matches(in: str, options: [], range: NSRange(0..<str.count))
                 isLoggedin = result.count > 0
-                print("login(): \(isLoggedin)")
-                print("login(): \(str)")
             } catch _ {
                 result.success = false
                 result.error = Login.Network
@@ -157,7 +154,6 @@ final class SakaiAPI {
         task.resume()
         
         _ = semaphore.wait(timeout: .distantFuture)
-        print("dats(): \(String(data: data, encoding: .utf8)!)")
         if !isLoggedin { result.errorMsg = ErrorMsg.FailedToLogin.rawValue }
         result.success = isLoggedin
         
@@ -191,7 +187,6 @@ final class SakaiAPI {
             }
             
             let loginRes = login()
-            print("status: \(loginRes.success)")
             if !loginRes.success {
                 result.success = false
                 result.errorMsg = loginRes.errorMsg
@@ -220,8 +215,6 @@ final class SakaiAPI {
         }
         task.resume()
         _ = semaphore.wait(timeout: .distantFuture)
-        
-        print("Logged in: \(isLoggedin())")
         
         if result.success { Saver.shared.saveKadaiFetchedTimeToStorage() }
         result.rawKadaiList = assignmentEntry

@@ -23,7 +23,7 @@ struct HeaderView: View {
                     .padding(.leading, 5)
                     .padding(.trailing, 16)
                 Spacer()
-                Text("更新：\(updatedTime)")
+                Text("取得：\(updatedTime)")
                     .font(.system(size: 14))
                     .padding(16)
             }.frame(height: 40, alignment: .topLeading)
