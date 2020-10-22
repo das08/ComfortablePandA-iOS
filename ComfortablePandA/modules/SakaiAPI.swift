@@ -13,6 +13,7 @@ extension Collection where Indices.Iterator.Element == Index {
 }
 
 enum Login: Error {
+    case Default
     case Network
     case LTNotFound
 }
@@ -23,15 +24,14 @@ final class SakaiAPI {
     static let shared = SakaiAPI()
     
     func getLoginToken() -> String? {
-        
         let urlString = "https://cas.ecs.kyoto-u.ac.jp/cas/login?service=https%3A%2F%2Fpanda.ecs.kyoto-u.ac.jp%2Fsakai-login-tool%2Fcontainer"
         let url = URL(string: urlString)!
-
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 6
         var loginToken: String?
-
         let semaphore = DispatchSemaphore(value: 0)
 
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in  //非同期で通信を行う
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in  
             do {
                 guard let data = data else { throw Login.Network }
                 let regex = try! NSRegularExpression(pattern: "<input type=\"hidden\" name=\"lt\" value=\"(.+)\" \\/>");
@@ -56,14 +56,16 @@ final class SakaiAPI {
         return loginToken
     }
     
-    func isLoggedin() -> Bool {
-        let url = URL(string: "https://panda.ecs.kyoto-u.ac.jp/portal/")!
+    func isLoggedin() -> loginStatus {
+        var result = loginStatus()
         
+        let url = URL(string: "https://panda.ecs.kyoto-u.ac.jp/portal/")!
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 6
         var isLoggedin = false
-
         let semaphore = DispatchSemaphore(value: 0)
 
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             do {
                 guard let data = data else { throw Login.Network }
                 let regex = try! NSRegularExpression(pattern: "\"loggedIn\": true");
@@ -72,8 +74,10 @@ final class SakaiAPI {
                 let result = regex.matches(in: str, options: [], range: NSRange(0..<str.count))
                 
                 isLoggedin = result.count > 0
-            } catch _ {
-                
+            } catch let p {
+                print("mes:\(p)")
+                result.success = false
+                result.error = Login.Network
             }
             semaphore.signal()
         }
@@ -81,15 +85,37 @@ final class SakaiAPI {
 
         _ = semaphore.wait(timeout: .distantFuture)
         
-        return isLoggedin
+        result.success = isLoggedin
+        return result
     }
 
-    func login() -> () {
-        let ECS_ID = getKeychain(account: "ECS_ID").data
-        let Password = getKeychain(account: "Password").data
+    func login() -> loginStatus {
+        var result = loginStatus()
+        
+        let _lt = getLoginToken()
+        var ECS_ID = ""
+        var Password = ""
+        
+        if _lt == nil {
+            result.success = false
+            result.errorMsg = ErrorMsg.FailedToGetLT.rawValue
+            return result
+        }
+        let lt = _lt!
+        
+        if getKeychain(account: "ECS_ID").success && getKeychain(account: "Password").success {
+            ECS_ID = getKeychain(account: "ECS_ID").data
+            Password = getKeychain(account: "Password").data
+        }else{
+            result.success = false
+            result.errorMsg = "ECS_IDまたはパスワードが保存されていません。"
+            return result
+        }
+        
+        
 //        print("\(ECS_ID), \(Password)")
         let url = URL(string: "https://cas.ecs.kyoto-u.ac.jp/cas/login?service=https%3A%2F%2Fpanda.ecs.kyoto-u.ac.jp%2Fsakai-login-tool%2Fcontainer")!  //URLを生成
-        let lt = getLoginToken()!
+        
         let data : Data = "_eventId=submit&execution=e1s1&lt=\(lt)&password=\(Password)&username=\(ECS_ID)".data(using: .utf8)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -97,18 +123,30 @@ final class SakaiAPI {
         request.httpBody = data
         
         let semaphore = DispatchSemaphore(value: 0)
+        var isLoggedin = false
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data else {
                 print("data is nil")
                 return
             }
+            let regex = try! NSRegularExpression(pattern: "\"loggedIn\": true");
+            let str = String(data: data, encoding: .utf8)!
+
+            let result = regex.matches(in: str, options: [], range: NSRange(0..<str.count))
+            
+            isLoggedin = result.count > 0
             
             semaphore.signal()
         }
         task.resume()
         
         _ = semaphore.wait(timeout: .distantFuture)
+        
+        if !isLoggedin { result.errorMsg = ErrorMsg.FailedToLogin.rawValue }
+        result.success = isLoggedin
+        
+        return result
     }
     
     func logout() -> () {
@@ -118,11 +156,7 @@ final class SakaiAPI {
         let semaphore = DispatchSemaphore(value: 0)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data else {
-                print("data is nil")
-                return
-            }
-            
+            guard let data = data else { return }
             semaphore.signal()
         }
         task.resume()
@@ -131,16 +165,29 @@ final class SakaiAPI {
     }
     
 
-    func fetchAssignmentsFromPandA() -> [AssignmentEntry]? {
-        if (!isLoggedin()){
-            login()
+    func fetchAssignmentsFromPandA() -> kadaiFetchStatus {
+        var result = kadaiFetchStatus()
+        let loginCheck = isLoggedin()
+        if (!loginCheck.success){
+            
+            if loginCheck.error == Login.Network {
+                result.success = false
+                result.errorMsg = "Panda is down"
+                return result
+            }
+            
+            let loginRes = login()
+            print("status: \(loginRes.success)")
+            if !loginRes.success {
+                result.success = false
+                result.errorMsg = loginRes.errorMsg
+                return result
+            }
         }
         
         let urlString = "https://panda.ecs.kyoto-u.ac.jp/direct/assignment/my.json"
         let url = URL(string: urlString)!
-        
         var assignmentEntry: [AssignmentEntry]?
-        
         let semaphore = DispatchSemaphore(value: 0)
         
         let request = URLRequest(url: url,
@@ -165,13 +212,13 @@ final class SakaiAPI {
         
         _ = semaphore.wait(timeout: .distantFuture)
         
-        print("load kadaiList from panda")
         print("Logged in: \(isLoggedin())")
-        print(assignmentEntry![0])
         
         Saver.shared.saveKadaiFetchedTimeToStorage()
         
-        return assignmentEntry
+        result.rawKadaiList = assignmentEntry
+        
+        return result
     }
     
     func fetchLectureInfoFromPandA() -> [LectureInfo]? {
@@ -208,7 +255,12 @@ final class SakaiAPI {
     
     func getRawKadaiList() -> [AssignmentEntry] {
         var kadaiList: [AssignmentEntry]
-        kadaiList = SakaiAPI.shared.fetchAssignmentsFromPandA()!
+        let res = SakaiAPI.shared.fetchAssignmentsFromPandA()
+        if res.success {
+            kadaiList = res.rawKadaiList!
+        }else{
+            kadaiList = [AssignmentEntry]()
+        }
         return kadaiList
     }
     
@@ -234,6 +286,18 @@ struct AssignmentEntry: Codable, Identifiable {
 
 struct AssignmentEntryDueTime: Codable {
     let time: Int
+}
+
+struct loginStatus {
+    var success = true
+    var errorMsg = ""
+    var error: Login = Login.Default
+}
+
+struct kadaiFetchStatus {
+    var success = true
+    var errorMsg = ""
+    var rawKadaiList: [AssignmentEntry]?
 }
 
 

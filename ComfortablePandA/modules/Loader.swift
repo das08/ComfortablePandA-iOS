@@ -166,6 +166,7 @@ func getKeychain(account: String) -> loadResultMessage {
     }
     catch {
         result.data = "something went wrong"
+        result.errorMsg = Keychain.Errors.keychainError
     }
     return result
 }
@@ -174,5 +175,5 @@ func getKeychain(account: String) -> loadResultMessage {
 struct loadResultMessage {
     var success: Bool = false
     var data: String = ""
-    var errorMsg :Keychain.Errors = Keychain.Errors.keychainError
+    var errorMsg :Keychain.Errors = Keychain.Errors.KeychainNoError
 }

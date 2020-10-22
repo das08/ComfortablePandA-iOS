@@ -94,5 +94,6 @@ enum Keychain {
     enum Errors: Error {
         case keychainError
         case keychainNotFound
+        case KeychainNoError
     }
 }

@@ -13,6 +13,9 @@ struct MainView: View {
     @AppStorage("kadai", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
     private var storedKadaiList: Data = Data()
     
+    @State private var errorAlert = false
+    @State private var errorAlertMsg = ""
+    
     @State private var kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
     @State private var isShowing = false
     @State private var currentDate = Date()
@@ -33,22 +36,32 @@ struct MainView: View {
                 }
             HStack{
                 Button(action: {
-                    kadaiList = createKadaiList(rawKadaiList: SakaiAPI.shared.getRawKadaiList(), count: 999)
-                    Saver.shared.mergeAndSaveKadaiListToStorage(newKadaiList: kadaiList)
-                    Saver.shared.saveKadaiFetchedTimeToStorage()
-                    kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
                     
-                    kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
-                    currentDate = Date()
-                    WidgetCenter.shared.reloadAllTimelines()
-                    UIApplication.shared.applicationIconBadgeNumber = BadgeCount.shared.badgeCount
-                    
+                    let res = SakaiAPI.shared.fetchAssignmentsFromPandA()
+                    if res.success {
+                        kadaiList = createKadaiList(rawKadaiList: res.rawKadaiList!, count: 999)
+                        Saver.shared.mergeAndSaveKadaiListToStorage(newKadaiList: kadaiList)
+                        Saver.shared.saveKadaiFetchedTimeToStorage()
+                        kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
+                        
+                        kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
+                        currentDate = Date()
+                        WidgetCenter.shared.reloadAllTimelines()
+                        UIApplication.shared.applicationIconBadgeNumber = BadgeCount.shared.badgeCount
+                    }else{
+                        errorAlert = true
+                        errorAlertMsg = res.errorMsg
+                    }
+
                 }) {
                     HStack{
                         Image(systemName: "tray.and.arrow.down")
                         Text("課題を取得")
                     }
+                }.alert(isPresented: $errorAlert) {
+                    Alert(title: Text("\(errorAlertMsg)"))
                 }
+
                 
                 Button(action: {
                     WidgetCenter.shared.reloadAllTimelines()
