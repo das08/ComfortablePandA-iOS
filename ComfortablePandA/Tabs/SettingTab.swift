@@ -9,8 +9,6 @@ import SwiftUI
 import WidgetKit
 
 struct SettingView: View {
-    
-    
     var body: some View {
         NavigationView {
             List {
@@ -18,6 +16,11 @@ struct SettingView: View {
                     Text("完了済みの課題を表示する")
                 }.onTapGesture {
                     WidgetCenter.shared.reloadAllTimelines()
+                }
+                HStack {
+                    NavigationLink(destination: LoginView()){
+                        Text("PandAログイン")
+                    }
                 }
             }
             .navigationBarTitle("設定")

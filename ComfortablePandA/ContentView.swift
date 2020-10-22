@@ -19,20 +19,13 @@ struct ContentView: View {
                         Text("課題一覧")
                     }
                 }.tag(1)
-            LoginView()
-                .tabItem {
-                    VStack {
-                        Image(systemName: "person.fill")
-                        Text("PandAログイン")
-                    }
-                }.tag(2)
             SettingView()
                 .tabItem {
                     VStack {
                         Image(systemName: "gear")
                         Text("設定")
                     }
-                }.tag(3)
+                }.tag(2)
         }
     }
     
