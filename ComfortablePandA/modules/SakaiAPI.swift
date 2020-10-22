@@ -121,11 +121,17 @@ final class SakaiAPI {
         var isLoggedin = false
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data else { return }
-            let regex = try! NSRegularExpression(pattern: "\"loggedIn\": true");
-            let str = String(data: data, encoding: .utf8)!
-            let result = regex.matches(in: str, options: [], range: NSRange(0..<str.count))
-            isLoggedin = result.count > 0
+            do {
+                guard let data = data else { throw Login.Network }
+                let regex = try! NSRegularExpression(pattern: "\"loggedIn\": true");
+                let str = String(data: data, encoding: .utf8)!
+                let result = regex.matches(in: str, options: [], range: NSRange(0..<str.count))
+                isLoggedin = result.count > 0
+            } catch _ {
+                result.success = false
+                result.error = Login.Network
+            }
+            
             semaphore.signal()
         }
         task.resume()
@@ -197,7 +203,7 @@ final class SakaiAPI {
         
         print("Logged in: \(isLoggedin())")
         
-        Saver.shared.saveKadaiFetchedTimeToStorage()
+        if result.success { Saver.shared.saveKadaiFetchedTimeToStorage() }
         result.rawKadaiList = assignmentEntry
         
         return result

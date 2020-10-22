@@ -13,4 +13,5 @@ enum ErrorMsg: String {
     case FailedToGetResponse = "PandAに接続することができませんでした。時間を開けて再度お試しください。"
     case FailedToGetKeychain = "ECS_IDまたはパスワードが保存されていません。"
     case FailedToGetKadaiList = "課題の取得に失敗しました。"
+    case EmptyIDAndPass = "ECS_ID, パスワードを入力してください。"
 }
