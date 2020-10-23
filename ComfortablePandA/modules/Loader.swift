@@ -38,7 +38,9 @@ class Loader {
             return loadLectureInfo
         }
         
-        loadLectureInfo = load
+        if load == [LectureInfo]() { loadLectureInfo = SakaiAPI.shared.getLectureInfoList(); print("11") }
+        else{ loadLectureInfo = load }
+        
         return loadLectureInfo
     }
     
