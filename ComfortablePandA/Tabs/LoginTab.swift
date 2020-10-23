@@ -21,18 +21,18 @@ struct LoginView: View {
                 .font(.system(size: 48,
                               weight: .heavy))
             
-            VStack(spacing: 24) {
+            VStack(spacing: 12) {
                 TextField("ECS_ID", text: $ECS_ID)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .autocapitalization(.none)
-                    .frame(maxWidth: 280)
+                    .frame(width: 280)
                 
                 SecureField("Password", text: $Password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .frame(maxWidth: 280)
+                    .frame(width: 280)
                 
             }
-            .frame(height: 200)
+            .frame(height: 150)
             Button(action: {
                 UIApplication.shared.endEditing()
                 if ECS_ID == "" || Password == "" {
@@ -71,6 +71,9 @@ struct LoginView: View {
                 Alert(title: Text("\(alertText)"))
             }
             Spacer()
+                .onTapGesture {
+                    endEditing()
+                }
         }
         .onTapGesture {
             endEditing()
