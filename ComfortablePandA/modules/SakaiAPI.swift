@@ -196,6 +196,20 @@ final class SakaiAPI {
     }
     
     func fetchLectureInfoFromPandA() -> [LectureInfo]? {
+        let loginCheck = isLoggedin()
+        if (!loginCheck.success){
+//            if loginCheck.error == Login.Network {
+//                result.success = false
+//                result.errorMsg = ErrorMsg.FailedToGetResponse.rawValue
+//                return result
+//            }
+            let loginRes = login()
+//            if !loginRes.success {
+//                result.success = false
+//                result.errorMsg = loginRes.errorMsg
+//                return result
+//            }
+        }
         var lectureEntry: [LectureInfo]?
         
         let urlString = "https://panda.ecs.kyoto-u.ac.jp/direct/site.json"
@@ -210,6 +224,7 @@ final class SakaiAPI {
                 guard let lectureList = try? JSONDecoder().decode(LectureCollection.self, from: data) else { throw Login.JSONParse }
                 lectureEntry = lectureList.site_collection
             } catch _ {
+                print("lec fetch error")
                 lectureEntry = [LectureInfo]()
             }
             

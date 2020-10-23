@@ -56,15 +56,21 @@ struct MainView: View {
                 }) {
                     HStack{
                         Image(systemName: "tray.and.arrow.down")
+                            .font(Font.system(size: 20, weight: .semibold))
                         Text("課題を取得")
+                            .fontWeight(.semibold)
+                            
                     }
+                    .padding(10)
+                    .foregroundColor(Color.white)
+                    
+                         .background(Color(red: 54/255 , green: 200/255, blue: 150/255))
+                         .cornerRadius(8)
                 }.alert(isPresented: $errorAlert) {
                     Alert(title: Text("\(errorAlertMsg)"))
                 }
+                .buttonStyle(ShrinkButtonStyle())
 
-                
-                
-                
             }
             
             List{
@@ -103,3 +109,15 @@ struct MainView_Previews: PreviewProvider {
         MainView()
     }
 }
+
+struct ShrinkButtonStyle: ButtonStyle {
+
+   func makeBody(configuration: Self.Configuration) -> some View {
+
+     let isPressed = configuration.isPressed
+
+     return configuration.label
+       .scaleEffect(x: isPressed ? 0.9 : 1, y: isPressed ? 0.9 : 1, anchor: .center)
+       .animation(.spring(response: 0.2, dampingFraction: 0.9, blendDuration: 0))
+   }
+ }
