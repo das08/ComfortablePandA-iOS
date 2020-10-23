@@ -93,9 +93,7 @@ func createKadaiList(rawKadaiList: [AssignmentEntry], count: Int) -> [Kadai] {
     var entryCount = 0
     
     for entry in kadaiList {
-        if entryCount >= count {
-            break
-        }
+        if entryCount >= count { break }
         
         let daysUntil = getDaysUntil(dueDate: entry.dueDate, dispDate: Date())
         
@@ -116,9 +114,7 @@ func createKadaiList(_kadaiList: [Kadai], count: Int) -> [Kadai] {
     var incompleteEntryCount = 0
     
     for entry in kadaiList {
-        if entryCount >= count {
-            break
-        }
+        if entryCount >= count { break }
         
         let daysUntil = getDaysUntil(dueDate: entry.dueDate, dispDate: Date())
         if daysUntil > 0 {
@@ -137,9 +133,7 @@ func createKadaiList(_kadaiList: [Kadai], count: Int) -> [Kadai] {
         }
     }
     
-    if count == 999 {
-        BadgeCount.shared.badgeCount = incompleteEntryCount
-    }
+    if count == 999 { BadgeCount.shared.badgeCount = incompleteEntryCount }
     
     return validKadaiList
 }

@@ -6,35 +6,13 @@
 //
 import Foundation
 
-extension Collection where Indices.Iterator.Element == Index {
-   public subscript(safe index: Index) -> Iterator.Element? {
-    return (startIndex <= index && index < endIndex) ? self[index] : "不明" as! Self.Element
-   }
-}
-
-enum Login: Error {
-    case Default
-    case Network
-    case JSONParse
-    case LTNotFound
-    case EXENotFound
-}
-
-
-struct Token {
-    var LT: String?
-    var EXE: String?
-}
-
 final class SakaiAPI {
-    
     static let shared = SakaiAPI()
     
     func getLoginToken() -> Token {
         let urlString = "https://cas.ecs.kyoto-u.ac.jp/cas/login?service=https%3A%2F%2Fpanda.ecs.kyoto-u.ac.jp%2Fsakai-login-tool%2Fcontainer"
         let url = URL(string: urlString)!
-        var request = URLRequest(url: url)
-        request.timeoutInterval = 6
+        let request = URLRequest(url: url, timeoutInterval: 6)
         var loginToken: String?
         var execution: String?
         var tokens = Token()
@@ -63,9 +41,7 @@ final class SakaiAPI {
                 loginToken = String(str[str.index(str.startIndex, offsetBy: start)..<str.index(str.startIndex, offsetBy: end)])
                 execution = String(str[str.index(str.startIndex, offsetBy: start2)..<str.index(str.startIndex, offsetBy: end2)])
                 tokens = Token(LT: loginToken, EXE: execution)
-            } catch _ {
-                
-            }
+            } catch _ { }
             semaphore.signal()
         }
         task.resume()
@@ -79,8 +55,7 @@ final class SakaiAPI {
         var result = LoginStatus()
         
         let url = URL(string: "https://panda.ecs.kyoto-u.ac.jp/portal/")!
-        var request = URLRequest(url: url)
-        request.timeoutInterval = 6
+        let request = URLRequest(url: url, timeoutInterval: 6)
         var isLoggedin = false
         
         let semaphore = DispatchSemaphore(value: 0)
@@ -100,8 +75,8 @@ final class SakaiAPI {
         task.resume()
 
         _ = semaphore.wait(timeout: .distantFuture)
-        
         result.success = isLoggedin
+        
         return result
     }
 
@@ -198,7 +173,7 @@ final class SakaiAPI {
         var assignmentEntry: [AssignmentEntry]?
         let semaphore = DispatchSemaphore(value: 0)
         
-        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10.0)
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 6)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             do {
@@ -225,7 +200,7 @@ final class SakaiAPI {
         
         let urlString = "https://panda.ecs.kyoto-u.ac.jp/direct/site.json"
         let url = URL(string: urlString)!
-        let request = URLRequest(url: url, timeoutInterval: 10.0)
+        let request = URLRequest(url: url, timeoutInterval: 6)
 
         let semaphore = DispatchSemaphore(value: 0)
 
@@ -266,29 +241,24 @@ final class SakaiAPI {
     }
 }
 
-struct AssignmentCollection: Codable {
-    let assignment_collection: [AssignmentEntry]
-}
-
-struct AssignmentEntry: Codable, Identifiable {
-    let context: String
-    let id: String
-    let title: String
-    let dueTime: AssignmentEntryDueTime
-    let instructions: String
-}
-
-struct AssignmentEntryDueTime: Codable {
-    let time: Int
-}
-
 
 func findLectureName(lectureInfoList: [LectureInfo], lecID: String) -> String {
     let index = lectureInfoList.firstIndex { $0.id == lecID }
-    if index != nil {
-        return lectureInfoList[index!].title.components(separatedBy: "]")[safe: 1]!
-    }else{
-        return "不明"
-    }
+    if index != nil { return lectureInfoList[index!].title.components(separatedBy: "]")[safe: 1]! }
+    else{ return "不明" }
 }
 
+
+extension Collection where Indices.Iterator.Element == Index {
+   public subscript(safe index: Index) -> Iterator.Element? {
+    return (startIndex <= index && index < endIndex) ? self[index] : "不明" as! Self.Element
+   }
+}
+
+enum Login: Error {
+    case Default
+    case Network
+    case JSONParse
+    case LTNotFound
+    case EXENotFound
+}

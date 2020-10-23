@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct LectureCollection: Codable {
-    let site_collection: [LectureInfo]
-}
-
 struct LectureInfo: Codable, Identifiable, Equatable {
     let id: String
     let title: String

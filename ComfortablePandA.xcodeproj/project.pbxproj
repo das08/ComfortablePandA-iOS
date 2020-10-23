@@ -11,6 +11,8 @@
 		9747DAA725416FD400911430 /* ErrorMsg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9747DAA125416F2800911430 /* ErrorMsg.swift */; };
 		9747DAAD254188C100911430 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9747DAAC254188C100911430 /* Status.swift */; };
 		9747DAB2254188D800911430 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9747DAAC254188C100911430 /* Status.swift */; };
+		9747DAE225428CC000911430 /* Sakai.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9747DAE125428CC000911430 /* Sakai.swift */; };
+		9747DAE725428CC700911430 /* Sakai.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9747DAE125428CC000911430 /* Sakai.swift */; };
 		974CA5E6253A94FE007BA50F /* CheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CA5E5253A94FE007BA50F /* CheckView.swift */; };
 		974CA5EC253AA1A2007BA50F /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CA5EB253AA1A2007BA50F /* MainTabView.swift */; };
 		974CA637253B0F47007BA50F /* SwiftUIRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 974CA636253B0F47007BA50F /* SwiftUIRefresh */; };
@@ -102,6 +104,7 @@
 /* Begin PBXFileReference section */
 		9747DAA125416F2800911430 /* ErrorMsg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMsg.swift; sourceTree = "<group>"; };
 		9747DAAC254188C100911430 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		9747DAE125428CC000911430 /* Sakai.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sakai.swift; sourceTree = "<group>"; };
 		974CA5E5253A94FE007BA50F /* CheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckView.swift; sourceTree = "<group>"; };
 		974CA5EB253AA1A2007BA50F /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		974CA640253D492F007BA50F /* Updater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updater.swift; sourceTree = "<group>"; };
@@ -217,6 +220,7 @@
 				974CA6BE25407695007BA50F /* Setting.swift */,
 				974CA66C253ECDBF007BA50F /* BadgeCount.swift */,
 				97F92F8325289635007CC58C /* DueDates.swift */,
+				9747DAE125428CC000911430 /* Sakai.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -507,6 +511,7 @@
 				97F92F942528E613007CC58C /* Loader.swift in Sources */,
 				974CA667253E8ABC007BA50F /* Notification.swift in Sources */,
 				97F92FBD252C6C24007CC58C /* Saver.swift in Sources */,
+				9747DAE725428CC700911430 /* Sakai.swift in Sources */,
 				978A106C252729EF002C6C19 /* miniPandA.swift in Sources */,
 				974CA6B925407665007BA50F /* HeaderView.swift in Sources */,
 			);
@@ -539,6 +544,7 @@
 				974CA66D253ECDC0007BA50F /* BadgeCount.swift in Sources */,
 				9792402D25272222008F5F98 /* ComfortablePandAApp.swift in Sources */,
 				97924060252724D9008F5F98 /* KadaiView.swift in Sources */,
+				9747DAE225428CC000911430 /* Sakai.swift in Sources */,
 				974CA5E6253A94FE007BA50F /* CheckView.swift in Sources */,
 				974CA641253D4930007BA50F /* Updater.swift in Sources */,
 			);
