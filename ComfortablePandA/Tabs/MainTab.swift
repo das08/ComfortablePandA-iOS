@@ -63,23 +63,8 @@ struct MainView: View {
                 }
 
                 
-                Button(action: {
-                    WidgetCenter.shared.reloadAllTimelines()
-                }) {
-                    HStack{
-                        Image(systemName: "arrow.2.circlepath")
-                        Text("Widgetを更新")
-                    }
-                }
-                Button(action:{
-                    setNotification(title: "📗新規課題", body: "2020/10/15 11:00 電気電子工学概論\n課題１")
-                    setNotification(title: "⏰提出1日前", body: "2020/10/10 12:00 電気電子工学概論\n課題１")
-                    BadgeCount.shared.badgeCount = 99
-                    UIApplication.shared.applicationIconBadgeNumber = BadgeCount.shared.badgeCount
-                }
-                ) {
-                    Text("通知")
-                }
+                
+                
             }
             
             List{
@@ -91,7 +76,6 @@ struct MainView: View {
                         HStack{
                             CheckView(isFinished: kadai.isFinished, kadaiList: self.$kadaiList ,kid: kadai.id)
                             HStack{
-                                
                                 LectureNameView(lectureName:kadai.lectureName, daysUntil: daysUntil)
                                 Spacer()
                                 DateTimeView(date: kadai.dueDate, time: time)
