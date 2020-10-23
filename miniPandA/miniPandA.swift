@@ -20,30 +20,29 @@ struct Provider: TimelineProvider {
     
     
     func getSnapshot(in context: Context, completion: @escaping (KadaiEntry) -> Void) {
-//        guard let kadai = try? JSONDecoder().decode(Kadai.self, from:kadaiList) else { return }
-        let kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 5)
-        let entry = KadaiEntry(date: Date(), kadai: kadaiList)
+        let kadaiEntrySample = [
+            Kadai(id: "s1", lectureName: "Lec1", assignmentInfo: "Quiz1", dueDate: Calendar.current.date(byAdding: .hour, value: 1, to: Date())!, description: "", isFinished: false),
+            Kadai(id: "s2", lectureName: "Lec2", assignmentInfo: "Quiz2", dueDate: Calendar.current.date(byAdding: .day, value: 2, to: Date())!, description: "", isFinished: false),
+            Kadai(id: "s3", lectureName: "Lec3", assignmentInfo: "Assignment3", dueDate: Calendar.current.date(byAdding: .day, value: 6, to: Date())!, description: "", isFinished: false),
+            Kadai(id: "s4", lectureName: "Lec4", assignmentInfo: "Assignment4", dueDate: Calendar.current.date(byAdding: .day, value: 10, to: Date())!, description: "", isFinished: false),
+            Kadai(id: "s5", lectureName: "Lec5", assignmentInfo: "Quiz5", dueDate: Calendar.current.date(byAdding: .day, value: 15, to: Date())!, description: "", isFinished: false),
+        ]
+        let entry = KadaiEntry(date: Date(), kadai: kadaiEntrySample)
         completion(entry)
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<KadaiEntry>) -> Void) {
-//        guard let kadai = try? JSONDecoder().decode(Kadai.self, from:kadaiList) else { return }
-        
         var entries = [KadaiEntry]()
         let currentDate = Date()
-//        let nextLoadDate = Calendar.current.date(byAdding: .hour, value: 1, to: currentDate)!
         
         let loadKadaiList = loadKadaiListFromStorage(storedKadaiList: storedKadaiList)!
-        
         let kadaiList = createKadaiList(_kadaiList: loadKadaiList, count: 5)
         
         // Create Timeline object for an hour
         for offset in 0 ..< 2 {
             let entryDate: Date = Calendar.current.date(byAdding: .minute, value: offset, to: currentDate)!
             var dispDateModified_kadaiList = [Kadai]()
-//            let kadaiList2 = getKadaiFromPandA()
-//            let kadaiList2 = Loader.shared.loadKadaiListFromStorage()!
-            
+
             for var entry in kadaiList {
                 entry.dispDate = entryDate
                 dispDateModified_kadaiList.append(entry)
@@ -55,9 +54,16 @@ struct Provider: TimelineProvider {
         completion(timeline)
     }
     
+    
     func placeholder(in context: Context) -> KadaiEntry {
-        let placeholder = Kadai(id: "001", lectureName: "Lec1", assignmentInfo: "Quiz1", dueDate: Date(), description: "description", isFinished: false)
-        return KadaiEntry(date: Date(), kadai: [placeholder, placeholder])
+        let kadaiEntrySample = [
+            Kadai(id: "s1", lectureName: "Lec1", assignmentInfo: "Quiz1", dueDate: Calendar.current.date(byAdding: .hour, value: 1, to: Date())!, description: "", isFinished: false),
+            Kadai(id: "s2", lectureName: "Lec2", assignmentInfo: "Quiz2", dueDate: Calendar.current.date(byAdding: .day, value: 2, to: Date())!, description: "", isFinished: false),
+            Kadai(id: "s3", lectureName: "Lec3", assignmentInfo: "Assignment3", dueDate: Calendar.current.date(byAdding: .day, value: 6, to: Date())!, description: "", isFinished: false),
+            Kadai(id: "s4", lectureName: "Lec4", assignmentInfo: "Assignment4", dueDate: Calendar.current.date(byAdding: .day, value: 10, to: Date())!, description: "", isFinished: false),
+            Kadai(id: "s5", lectureName: "Lec5", assignmentInfo: "Quiz5", dueDate: Calendar.current.date(byAdding: .day, value: 15, to: Date())!, description: "", isFinished: false),
+        ]
+        return KadaiEntry(date: Date(), kadai: kadaiEntrySample)
     }
 }
 
