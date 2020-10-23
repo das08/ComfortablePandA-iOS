@@ -34,8 +34,7 @@ class Loader {
     func loadLectureInfoFromStorage() -> [LectureInfo]? {
         var loadLectureInfo: [LectureInfo]
         guard let load = try? JSONDecoder().decode([LectureInfo].self, from: storedLectureInfo) else {
-            let loadLectureInfo = SakaiAPI.shared.fetchLectureInfoFromPandA()!
-            Saver.shared.saveLectureInfoToStorage(lectureInfoList: loadLectureInfo)
+            let loadLectureInfo = SakaiAPI.shared.getLectureInfoList()
             return loadLectureInfo
         }
         

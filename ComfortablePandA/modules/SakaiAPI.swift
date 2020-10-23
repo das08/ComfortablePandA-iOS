@@ -15,6 +15,7 @@ extension Collection where Indices.Iterator.Element == Index {
 enum Login: Error {
     case Default
     case Network
+    case JSONParse
     case LTNotFound
     case EXENotFound
 }
@@ -179,13 +180,11 @@ final class SakaiAPI {
         var result = KadaiFetchStatus()
         let loginCheck = isLoggedin()
         if (!loginCheck.success){
-            
             if loginCheck.error == Login.Network {
                 result.success = false
                 result.errorMsg = ErrorMsg.FailedToGetResponse.rawValue
                 return result
             }
-            
             let loginRes = login()
             if !loginRes.success {
                 result.success = false
@@ -199,18 +198,17 @@ final class SakaiAPI {
         var assignmentEntry: [AssignmentEntry]?
         let semaphore = DispatchSemaphore(value: 0)
         
-        let request = URLRequest(url: url,
-                                 cachePolicy: .reloadIgnoringLocalCacheData,
-                                 timeoutInterval: 10.0)
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10.0)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data else { return }
-            guard let kadaiList = try? JSONDecoder().decode(AssignmentCollection.self, from: data) else {
+            do {
+                guard let data = data else { throw Login.JSONParse }
+                guard let kadaiList = try? JSONDecoder().decode(AssignmentCollection.self, from: data) else { throw Login.JSONParse }
+                assignmentEntry = kadaiList.assignment_collection
+            } catch _ {
                 result.success = false
                 result.errorMsg = ErrorMsg.FailedToGetKadaiList.rawValue
-                return
             }
-            assignmentEntry = kadaiList.assignment_collection
             semaphore.signal()
         }
         task.resume()
@@ -223,30 +221,28 @@ final class SakaiAPI {
     }
     
     func fetchLectureInfoFromPandA() -> [LectureInfo]? {
-        
-        let urlString = "https://das82.com/site.json"
-        let url = URL(string: urlString)!
-        
         var lectureEntry: [LectureInfo]?
         
+        let urlString = "https://panda.ecs.kyoto-u.ac.jp/direct/site.json"
+        let url = URL(string: urlString)!
+        let request = URLRequest(url: url, timeoutInterval: 10.0)
+
         let semaphore = DispatchSemaphore(value: 0)
-        
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else { return }
-            
-            guard let lectureList = try? JSONDecoder().decode(LectureCollection.self, from: data) else {
-                print("cannnot get kadai")
-                return
+
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            do {
+                guard let data = data else { throw Login.JSONParse }
+                guard let lectureList = try? JSONDecoder().decode(LectureCollection.self, from: data) else { throw Login.JSONParse }
+                lectureEntry = lectureList.site_collection
+            } catch _ {
+                lectureEntry = [LectureInfo]()
             }
             
-            lectureEntry = lectureList.site_collection
             semaphore.signal()
         }
         task.resume()
-        
         _ = semaphore.wait(timeout: .distantFuture)
         
-        print("load lecID from panda")
         return lectureEntry
     }
     

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @State var showingAlert = false
     @State var alertText = ""
     @State private var ECS_ID: String = ""
@@ -23,6 +24,7 @@ struct LoginView: View {
             VStack(spacing: 24) {
                 TextField("ECS_ID", text: $ECS_ID)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .autocapitalization(.none)
                     .frame(maxWidth: 280)
                 
                 SecureField("Password", text: $Password)
@@ -46,6 +48,7 @@ struct LoginView: View {
                     
                     if loginRes.success {
                         self.alertText = "ECS_ID, パスワードを保存しました。"
+                        self.mode.wrappedValue.dismiss()
                     }else{
                         if loginRes.error == Login.Network {
                             self.alertText = ErrorMsg.FailedToGetResponse.rawValue
