@@ -18,21 +18,19 @@ struct LoginView: View {
         
         VStack(alignment: .center) {
             Text("PandA Login")
-                .font(.system(size: 48,
-                              weight: .heavy))
+                .font(.system(size: 48, weight: .heavy))
             
             VStack(spacing: 12) {
                 TextField("ECS_ID", text: $ECS_ID)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .autocapitalization(.none)
                     .frame(width: 280)
-                
                 SecureField("Password", text: $Password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(width: 280)
-                
             }
             .frame(height: 150)
+            
             Button(action: {
                 UIApplication.shared.endEditing()
                 if ECS_ID == "" || Password == "" {
@@ -79,7 +77,6 @@ struct LoginView: View {
             endEditing()
         }
     }
-    
 }
 
 extension UIApplication {
