@@ -44,8 +44,7 @@ struct MainView: View {
                 HStack{
                     Button(action: {
                         self.isLoading = true
-                        DispatchQueue.main.asyncAfter(deadline: .now()) {
-                            
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                             let res = SakaiAPI.shared.fetchAssignmentsFromPandA()
                             if res.success {
                                 self.isLoadingMsg = "課題リスト作成中..."
