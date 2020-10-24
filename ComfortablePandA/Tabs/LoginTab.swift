@@ -14,67 +14,80 @@ struct LoginView: View {
     @State private var ECS_ID: String = ""
     @State private var Password: String = ""
     
+    @State private var isLoading = false
+    @State private var isLoadingMsg = "ログイン中..."
+    
     var body: some View {
-        
-        VStack(alignment: .center) {
-            Text("PandA Login")
-                .font(.system(size: 48, weight: .heavy))
-            
-            VStack(spacing: 12) {
-                TextField("ECS_ID", text: $ECS_ID)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .autocapitalization(.none)
-                    .frame(width: 280)
-                SecureField("Password", text: $Password)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .frame(width: 280)
-            }
-            .frame(height: 150)
-            
-            Button(action: {
-                UIApplication.shared.endEditing()
-                if ECS_ID == "" || Password == "" {
-                    self.showingAlert = true
-                    self.alertText = ErrorMsg.EmptyIDAndPass.rawValue
-                }else{
-                    self.showingAlert = true
+        if isLoading {
+            ProgressView(isLoadingMsg)
+                .scaleEffect(1.5, anchor: .center)
+        }else{
+            VStack(alignment: .center) {
+                Text("PandA Login")
+                    .font(.system(size: 48, weight: .heavy))
+                
+                VStack(spacing: 12) {
+                    TextField("ECS_ID", text: $ECS_ID)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .autocapitalization(.none)
+                        .frame(width: 280)
+                    SecureField("Password", text: $Password)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .frame(width: 280)
+                }
+                .frame(height: 150)
+                
+                Button(action: {
+                    self.isLoading = true
                     
-                    _ = saveKeychain(account: "ECS_ID", value: ECS_ID)
-                    _ = saveKeychain(account: "Password", value: Password)
-                    SakaiAPI.shared.logout()
-                    let loginRes = SakaiAPI.shared.login()
-                    
-                    if loginRes.success {
-                        self.alertText = "ECS_ID, パスワードを保存しました。"
-                        self.mode.wrappedValue.dismiss()
-                    }else{
-                        if loginRes.error == Login.Network {
-                            self.alertText = ErrorMsg.FailedToGetResponse.rawValue
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                        UIApplication.shared.endEditing()
+                        if ECS_ID == "" || Password == "" {
+                            self.showingAlert = true
+                            self.alertText = ErrorMsg.EmptyIDAndPass.rawValue
                         }else{
-                            self.alertText = loginRes.errorMsg
+                            self.showingAlert = true
+                            
+                            _ = saveKeychain(account: "ECS_ID", value: ECS_ID)
+                            _ = saveKeychain(account: "Password", value: Password)
+                            SakaiAPI.shared.logout()
+                            let loginRes = SakaiAPI.shared.login()
+                            
+                            if loginRes.success {
+                                self.alertText = "ECS_ID, パスワードを保存しました。"
+                                self.mode.wrappedValue.dismiss()
+                            }else{
+                                if loginRes.error == Login.Network {
+                                    self.alertText = ErrorMsg.FailedToGetResponse.rawValue
+                                }else{
+                                    self.alertText = loginRes.errorMsg
+                                }
+                            }
                         }
+                        self.isLoading = false
                     }
+                    
+                },
+                label: {
+                    Text("ログイン")
+                        .fontWeight(.medium)
+                        .frame(minWidth: 160)
+                        .foregroundColor(.white)
+                        .padding(12)
+                        .background(Color.accentColor)
+                        .cornerRadius(8)
+                })
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("\(alertText)"))
                 }
-            },
-            label: {
-                Text("ログイン")
-                    .fontWeight(.medium)
-                    .frame(minWidth: 160)
-                    .foregroundColor(.white)
-                    .padding(12)
-                    .background(Color.accentColor)
-                    .cornerRadius(8)
-            })
-            .alert(isPresented: $showingAlert) {
-                Alert(title: Text("\(alertText)"))
+                Spacer()
+                    .onTapGesture {
+                        endEditing()
+                    }
             }
-            Spacer()
-                .onTapGesture {
-                    endEditing()
-                }
-        }
-        .onTapGesture {
-            endEditing()
+            .onTapGesture {
+                endEditing()
+            }
         }
     }
 }
