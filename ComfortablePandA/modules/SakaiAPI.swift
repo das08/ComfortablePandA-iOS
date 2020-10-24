@@ -204,11 +204,9 @@ final class SakaiAPI {
 //                return result
 //            }
             let loginRes = login()
-//            if !loginRes.success {
-//                result.success = false
-//                result.errorMsg = loginRes.errorMsg
-//                return result
-//            }
+            if !loginRes.success {
+                return [LectureInfo]()
+            }
         }
         var lectureEntry: [LectureInfo]?
         

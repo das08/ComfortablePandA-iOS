@@ -33,18 +33,17 @@ struct MainView: View {
                     kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage2(), count: 999)
                     kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
                     currentDate = Date()
-                    print("ok!")
-//                    setNotification(title: "📗定期実行", body: "\(dispDate(date: Date()))")
                 }
+            
             HStack{
                 Button(action: {
-                    
                     let res = SakaiAPI.shared.fetchAssignmentsFromPandA()
                     if res.success {
                         kadaiList = createKadaiList(rawKadaiList: res.rawKadaiList!, count: 999)
                         Saver.shared.mergeAndSaveKadaiListToStorage(newKadaiList: kadaiList)
                         Saver.shared.saveKadaiFetchedTimeToStorage()
-                        kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
+//                        kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
+                        kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage2(), count: 999)
                         
                         
                         kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
