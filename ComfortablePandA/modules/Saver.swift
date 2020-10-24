@@ -43,7 +43,8 @@ class Saver {
     
     func mergeAndSaveKadaiListToStorage(newKadaiList: [Kadai]) -> () {
 //        For saving newly fetched kadaiList
-        let oldKadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
+//        let oldKadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
+        let oldKadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage2(), count: 999)
         
         let mergedKadaiList = mergeKadaiList(oldKL: oldKadaiList, newKL: newKadaiList)
         

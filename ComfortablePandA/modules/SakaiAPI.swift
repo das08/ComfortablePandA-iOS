@@ -214,7 +214,7 @@ final class SakaiAPI {
         
         let urlString = "https://panda.ecs.kyoto-u.ac.jp/direct/site.json"
         let url = URL(string: urlString)!
-        let request = URLRequest(url: url, timeoutInterval: 6)
+        let request = URLRequest(url: url, timeoutInterval: 10)
 
         let semaphore = DispatchSemaphore(value: 0)
 

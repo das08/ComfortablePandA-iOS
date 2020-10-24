@@ -35,7 +35,7 @@ struct Provider: TimelineProvider {
         var entries = [KadaiEntry]()
         let currentDate = Date()
         
-        let loadKadaiList = loadKadaiListFromStorage(storedKadaiList: storedKadaiList)!
+        let loadKadaiList = Loader.shared.loadKadaiListFromStorage2()
         let kadaiList = createKadaiList(_kadaiList: loadKadaiList, count: 5)
         
         // Create Timeline object for an hour

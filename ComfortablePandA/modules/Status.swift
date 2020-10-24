@@ -18,3 +18,9 @@ struct KadaiFetchStatus {
     var errorMsg = ""
     var rawKadaiList: [AssignmentEntry]?
 }
+
+struct keychainGetStatus {
+    var success: Bool = false
+    var data: String = ""
+    var errorMsg :Keychain.Errors = Keychain.Errors.KeychainNoError
+}

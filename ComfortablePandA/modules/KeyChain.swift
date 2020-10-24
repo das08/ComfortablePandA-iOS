@@ -97,3 +97,21 @@ enum Keychain {
         case KeychainNoError
     }
 }
+
+func getKeychain(account: String) -> keychainGetStatus {
+    var result = keychainGetStatus()
+    do {
+        let key = try Keychain.get(account: account)
+        result.success = true
+        result.data = String(data: key!, encoding: .utf8)!
+    }
+    catch Keychain.Errors.keychainNotFound{
+        result.data = "KeychainNotFound"
+        result.errorMsg = Keychain.Errors.keychainNotFound
+    }
+    catch {
+        result.data = "something went wrong"
+        result.errorMsg = Keychain.Errors.keychainError
+    }
+    return result
+}

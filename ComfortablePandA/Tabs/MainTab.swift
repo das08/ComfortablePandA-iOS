@@ -11,12 +11,13 @@ import SwiftUIRefresh
 
 struct MainView: View {
     @AppStorage("kadai", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
-    private var storedKadaiList: Data = Data()
+    var storedKadaiList: Data = Data()
     
     @State private var errorAlert = false
     @State private var errorAlertMsg = ""
     
-    @State private var kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
+//    @State private var kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
+    @State private var kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage2(), count: 999)
     @State private var isShowing = false
     @State private var currentDate = Date()
     @State private var kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
@@ -28,7 +29,8 @@ struct MainView: View {
             Text("取得日時: \(kadaiFetchedTime)")
             Text("更新日時: \(dispDate(date: currentDate))")
                 .onReceive(timer){ _ in
-                    kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
+//                    kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
+                    kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage2(), count: 999)
                     kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
                     currentDate = Date()
                     print("ok!")
@@ -43,6 +45,7 @@ struct MainView: View {
                         Saver.shared.mergeAndSaveKadaiListToStorage(newKadaiList: kadaiList)
                         Saver.shared.saveKadaiFetchedTimeToStorage()
                         kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
+                        
                         
                         kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
                         currentDate = Date()
@@ -94,7 +97,9 @@ struct MainView: View {
             .pullToRefresh(isShowing: $isShowing) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.isShowing = false
-                    kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
+//                    kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
+                    kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage2(), count: 999)
+                    
                     kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
                     currentDate = Date()
                     UIApplication.shared.applicationIconBadgeNumber = BadgeCount.shared.badgeCount
