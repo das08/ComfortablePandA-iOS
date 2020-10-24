@@ -10,17 +10,19 @@ import SwiftUI
 import SwiftUIRefresh
 
 struct MainView: View {
+    
     @AppStorage("kadai", store: UserDefaults(suiteName: "group.com.das08.ComfortablePandA"))
     var storedKadaiList: Data = Data()
     
     @State private var errorAlert = false
     @State private var errorAlertMsg = ""
     
-//    @State private var kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
     @State private var kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage2(), count: 999)
     @State private var isShowing = false
     @State private var currentDate = Date()
     @State private var kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
+    
+    @State private var isSheetPresented = true
     
     @State var timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     
@@ -29,7 +31,6 @@ struct MainView: View {
             Text("取得日時: \(kadaiFetchedTime)")
             Text("更新日時: \(dispDate(date: currentDate))")
                 .onReceive(timer){ _ in
-//                    kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
                     kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage2(), count: 999)
                     kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
                     currentDate = Date()
@@ -42,7 +43,6 @@ struct MainView: View {
                         kadaiList = createKadaiList(rawKadaiList: res.rawKadaiList!, count: 999)
                         Saver.shared.mergeAndSaveKadaiListToStorage(newKadaiList: kadaiList)
                         Saver.shared.saveKadaiFetchedTimeToStorage()
-//                        kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage()!, count: 999)
                         kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage2(), count: 999)
                         
                         
@@ -125,3 +125,5 @@ struct ShrinkButtonStyle: ButtonStyle {
        .animation(.spring(response: 0.2, dampingFraction: 0.9, blendDuration: 0))
    }
  }
+
+

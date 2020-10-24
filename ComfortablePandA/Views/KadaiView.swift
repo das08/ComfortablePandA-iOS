@@ -25,7 +25,7 @@ struct KadaiViewLarge: View{
         VStack(alignment:.leading ,spacing: 0){
             Spacer()
                 .frame(height:8)
-            HeaderView(updatedTime: kadaiFetchedTime)
+            WidgetHeaderView(updatedTime: kadaiFetchedTime)
             Spacer()
                 .frame(height:15)
             VStack(alignment:.leading, spacing:5){
