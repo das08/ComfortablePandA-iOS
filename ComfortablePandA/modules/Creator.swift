@@ -11,8 +11,6 @@ func createKadaiList(rawKadaiList: [AssignmentEntry], count: Int) -> [Kadai] {
     var kadaiList = [Kadai]()
     let lectureInfoList = Loader.shared.loadLectureInfoFromStorage()
     
-    print("\(lectureInfoList!)")
-    
     for rawEntry in rawKadaiList {
         let id = rawEntry.id
         let lectureName = findLectureName(lectureInfoList: lectureInfoList!, lecID:                                             rawEntry.context)
@@ -49,7 +47,6 @@ func createKadaiList(_kadaiList: [Kadai], count: Int) -> [Kadai] {
     let kadaiList = sortKadaiList(kadaiList: _kadaiList)
 
     var validKadaiList = [Kadai]()
-    
     var entryCount = 0
     var incompleteEntryCount = 0
     
@@ -72,7 +69,6 @@ func createKadaiList(_kadaiList: [Kadai], count: Int) -> [Kadai] {
             }
         }
     }
-    
     if count == 999 { BadgeCount.shared.badgeCount = incompleteEntryCount }
     
     return validKadaiList
