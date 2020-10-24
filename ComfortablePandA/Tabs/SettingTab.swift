@@ -23,10 +23,15 @@ struct SettingView: View {
                     
                     Button(action: {
                         WidgetCenter.shared.reloadAllTimelines()
+                        self.showingAlert = true
+                        self.alertInfo = "Widgetを更新しました！"
                     }) {
                         HStack{
                             Image(systemName: "arrow.2.circlepath")
                             Text("Widgetを更新")
+                                .alert(isPresented: $showingAlert) {
+                                    Alert(title: Text(alertInfo))
+                                }
                         }
                     }
                 }
