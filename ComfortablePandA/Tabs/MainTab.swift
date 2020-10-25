@@ -39,6 +39,7 @@ struct MainView: View {
                         kadaiList = createKadaiList(_kadaiList: Loader.shared.loadKadaiListFromStorage2(), count: 999)
                         kadaiFetchedTime = Loader.shared.loadKadaiFetchedTimeFromStorage()
                         currentDate = Date()
+                        UIApplication.shared.applicationIconBadgeNumber = BadgeCount.shared.badgeCount
                     }
                 
                 HStack{
