@@ -64,3 +64,15 @@ func dispDate(date: Date) -> String {
     df.dateFormat = "yyyy/MM/dd HH:mm"
     return df.string(from: date)
 }
+
+func dispRemainTime(time: kadaiDueDate) -> String {
+    var remainTime: String
+    
+    if time.days < 0 {
+        remainTime = "終了"
+    }else {
+        remainTime = "あと\(time.days)日\(time.hour)時間\(time.minute)分"
+    }
+
+    return remainTime
+}

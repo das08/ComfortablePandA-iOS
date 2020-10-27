@@ -49,7 +49,7 @@ struct KadaiViewLarge: View{
                                             .fill(getBadgeColor(days: daysUntil))
                                     )
                                     .padding(.horizontal, 5)
-                                Text("あと\(time.days)日\(time.hour)時間\(time.minute)分")
+                                Text(dispRemainTime(time: time))
                                     .font(.system(size: 14))
                                     .fontWeight(.bold)
                                     .foregroundColor(Color(red: 100/255 , green: 100/255, blue: 100/255))
