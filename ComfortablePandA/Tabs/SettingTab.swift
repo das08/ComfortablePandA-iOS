@@ -39,19 +39,62 @@ struct SettingView: View {
                 Section(header: Text("PandA関連")) {
                     HStack {
                         NavigationLink(destination: LoginView()){
-                            Text("PandAログイン")
+                            HStack{
+                                Image(systemName: "person.crop.circle")
+                                Text("PandAログイン")
+                            }
                         }
                     }
+                    
+                    Button(action:{
+                        SakaiAPI.shared.logout()
+                        self.showingAlert = true
+                        self.alertInfo = "PandAからログアウトしました。"
+                    }
+                    ) {
+                        HStack{
+                            Image(systemName: "escape")
+                            Text("ログアウト")
+                                .alert(isPresented: $showingAlert) {
+                                    Alert(title: Text(alertInfo))
+                                }
+                        }
+                    }
+                    
+                    Button(action:{
+                        let deleteIDResult = deleteKeychain(account: "ECS_ID")
+                        let deletePASSResult = deleteKeychain(account: "Password")
+                        
+                        if deleteIDResult.success && deletePASSResult.success {
+                            self.alertInfo = "ECS_ID, Passwordを削除しました。"
+                        } else {
+                            self.alertInfo = "ECS_ID, Passwordは保存されていません。"
+                        }
+                        self.showingAlert = true
+                    }
+                    ) {
+                        HStack {
+                            Image(systemName: "trash")
+                            Text("ログイン情報を端末から削除する")
+                                .alert(isPresented: $showingAlert) {
+                                    Alert(title: Text(alertInfo))
+                                }
+                        }
+                    }
+                    
                     Button(action:{
                         _ = SakaiAPI.shared.getLectureInfoList()
                         self.showingAlert = true
                         self.alertInfo = "多分取得できました！"
                     }
                     ) {
-                        Text("講義名情報を再取得する")
-                            .alert(isPresented: $showingAlert) {
-                                Alert(title: Text(alertInfo))
-                            }
+                        HStack{
+                            Image(systemName: "arrow.clockwise.icloud")
+                            Text("講義名情報を再取得する")
+                                .alert(isPresented: $showingAlert) {
+                                    Alert(title: Text(alertInfo))
+                                }
+                        }
                     }
                 }
                 
@@ -61,7 +104,7 @@ struct SettingView: View {
                         setNotification(title: "⏰提出1日前", body: "2020/10/10 12:00 テスト配信\n課題１")
                     }
                     ) {
-                        Text("通知テスト")
+                        Text("通知テスト（5秒後）")
                     }
                 }
             }

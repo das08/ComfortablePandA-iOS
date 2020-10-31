@@ -85,18 +85,18 @@ class AppEventHandler: NSObject {
     }
     
     @objc func didFinishLaunch() {
-        print("didFinishLaunch")
+//        print("didFinishLaunch")
     }
     @objc func willEnterForeground() {
-        print("willEnterForeground")
+//        print("willEnterForeground")
     }
     @objc func didEnterBackground() {
 //        BGTask.shared.scheduleAppRefresh()
-        print("didEnterBackground")
+//        print("didEnterBackground")
 //        UIApplication.shared.applicationIconBadgeNumber = 99
     }
     @objc func willTerminate() {
-        print("willTerminate")
+//        print("willTerminate")
         NotificationCenter.default.removeObserver(self)
     }
 }
