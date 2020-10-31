@@ -53,6 +53,17 @@ struct SettingView: View {
                                 Alert(title: Text(alertInfo))
                             }
                     }
+                    Button(action:{
+                        SakaiAPI.shared.logout()
+                        self.showingAlert = true
+                        self.alertInfo = "PandAからログアウトしました。"
+                    }
+                    ) {
+                        Text("ログアウト")
+                            .alert(isPresented: $showingAlert) {
+                                Alert(title: Text(alertInfo))
+                            }
+                    }
                 }
                 
                 Section(header: Text("デバッグ")) {
