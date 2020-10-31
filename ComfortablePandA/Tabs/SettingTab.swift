@@ -39,7 +39,10 @@ struct SettingView: View {
                 Section(header: Text("PandA関連")) {
                     HStack {
                         NavigationLink(destination: LoginView()){
-                            Text("PandAログイン")
+                            HStack{
+                                Image(systemName: "person.crop.circle")
+                                Text("PandAログイン")
+                            }
                         }
                     }
                     
@@ -49,10 +52,13 @@ struct SettingView: View {
                         self.alertInfo = "PandAからログアウトしました。"
                     }
                     ) {
-                        Text("ログアウト")
-                            .alert(isPresented: $showingAlert) {
-                                Alert(title: Text(alertInfo))
-                            }
+                        HStack{
+                            Image(systemName: "escape")
+                            Text("ログアウト")
+                                .alert(isPresented: $showingAlert) {
+                                    Alert(title: Text(alertInfo))
+                                }
+                        }
                     }
                     
                     Button(action:{
@@ -67,10 +73,13 @@ struct SettingView: View {
                         self.showingAlert = true
                     }
                     ) {
-                        Text("ログイン情報を端末から削除する")
-                            .alert(isPresented: $showingAlert) {
-                                Alert(title: Text(alertInfo))
-                            }
+                        HStack {
+                            Image(systemName: "trash")
+                            Text("ログイン情報を端末から削除する")
+                                .alert(isPresented: $showingAlert) {
+                                    Alert(title: Text(alertInfo))
+                                }
+                        }
                     }
                     
                     Button(action:{
@@ -79,10 +88,13 @@ struct SettingView: View {
                         self.alertInfo = "多分取得できました！"
                     }
                     ) {
-                        Text("講義名情報を再取得する")
-                            .alert(isPresented: $showingAlert) {
-                                Alert(title: Text(alertInfo))
-                            }
+                        HStack{
+                            Image(systemName: "arrow.clockwise.icloud")
+                            Text("講義名情報を再取得する")
+                                .alert(isPresented: $showingAlert) {
+                                    Alert(title: Text(alertInfo))
+                                }
+                        }
                     }
                 }
                 
