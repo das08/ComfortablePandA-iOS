@@ -104,7 +104,7 @@ struct SettingView: View {
                         setNotification(title: "⏰提出1日前", body: "2020/10/10 12:00 テスト配信\n課題１")
                     }
                     ) {
-                        Text("通知テスト")
+                        Text("通知テスト（5秒後）")
                     }
                 }
             }
