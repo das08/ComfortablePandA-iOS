@@ -42,17 +42,7 @@ struct SettingView: View {
                             Text("PandAログイン")
                         }
                     }
-                    Button(action:{
-                        _ = SakaiAPI.shared.getLectureInfoList()
-                        self.showingAlert = true
-                        self.alertInfo = "多分取得できました！"
-                    }
-                    ) {
-                        Text("講義名情報を再取得する")
-                            .alert(isPresented: $showingAlert) {
-                                Alert(title: Text(alertInfo))
-                            }
-                    }
+                    
                     Button(action:{
                         SakaiAPI.shared.logout()
                         self.showingAlert = true
@@ -60,6 +50,36 @@ struct SettingView: View {
                     }
                     ) {
                         Text("ログアウト")
+                            .alert(isPresented: $showingAlert) {
+                                Alert(title: Text(alertInfo))
+                            }
+                    }
+                    
+                    Button(action:{
+                        let deleteIDResult = deleteKeychain(account: "ECS_ID")
+                        let deletePASSResult = deleteKeychain(account: "Password")
+                        
+                        if deleteIDResult.success && deletePASSResult.success {
+                            self.alertInfo = "ECS_ID, Passwordを削除しました。"
+                        } else {
+                            self.alertInfo = "ECS_ID, Passwordは保存されていません。"
+                        }
+                        self.showingAlert = true
+                    }
+                    ) {
+                        Text("ログイン情報を端末から削除する")
+                            .alert(isPresented: $showingAlert) {
+                                Alert(title: Text(alertInfo))
+                            }
+                    }
+                    
+                    Button(action:{
+                        _ = SakaiAPI.shared.getLectureInfoList()
+                        self.showingAlert = true
+                        self.alertInfo = "多分取得できました！"
+                    }
+                    ) {
+                        Text("講義名情報を再取得する")
                             .alert(isPresented: $showingAlert) {
                                 Alert(title: Text(alertInfo))
                             }
